@@ -13,12 +13,13 @@ export default function AboutPage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-b from-secondary to-background py-16 sm:py-24">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <section className="relative bg-cover bg-center bg-no-repeat py-16 sm:py-24 min-h-96" style={{ backgroundImage: "url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/30x72x15-Metal-Barndominium-in-Michigan-side-view-H2BCnVKYmRhQgh3Mu1NgjeAexHilpW.webp')" }}>
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
             <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 font-sans text-balance">
               About Titan Steel Structures
             </h1>
-            <p className="text-lg text-white/80 font-sans leading-relaxed">
+            <p className="text-lg text-white/90 font-sans leading-relaxed">
               A leader in pre-engineered steel structures with a commitment to excellence and customer satisfaction.
             </p>
           </div>

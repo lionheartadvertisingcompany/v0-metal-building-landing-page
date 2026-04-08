@@ -304,16 +304,17 @@ export default function FAQPage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-b from-secondary to-background py-16 sm:py-24 mt-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white font-sans mb-4 text-balance">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-lg text-white/80 font-sans max-w-2xl mx-auto leading-relaxed">
-            Everything you need to know about prefabricated metal buildings, our calculator, and the quote process.
-          </p>
-        </div>
-      </section>
+        <section className="relative bg-cover bg-center bg-no-repeat py-16 sm:py-24 mt-16 min-h-96" style={{ backgroundImage: "url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/New-York-metal-warehouse-11fcV0USQBZOT62wUaFNWquzwpEVgd.webp')" }}>
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white font-sans mb-4 text-balance">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-lg text-white/90 font-sans max-w-2xl mx-auto leading-relaxed">
+              Everything you need to know about prefabricated metal buildings, our calculator, and the quote process.
+            </p>
+          </div>
+        </section>
 
       {/* FAQ Content */}
       <section className="py-16 sm:py-24">

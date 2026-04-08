@@ -126,9 +126,9 @@ export default function CaseStudiesPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-[#1e3a5f] pt-32 pb-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f] to-[#0f2744]" />
-        <div className="container relative mx-auto px-4 text-center">
+      <section className="relative bg-cover bg-center bg-no-repeat py-20 mt-16 min-h-96" style={{ backgroundImage: "url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/60x75x12-Steel-Retail-Store-in-Utah-scaled-1-IIVgSEOZjWXv5LxkdgQ0wU0muYpL9c.webp')" }}>
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-sans mb-6 text-balance">
             Building Projects
           </h1>
