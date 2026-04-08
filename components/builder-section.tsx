@@ -1,7 +1,11 @@
 "use client"
 
-import { useState, useMemo } from "react"
-import { ArrowRight, Minus, Plus, Info, Calculator, CheckCircle2 } from "lucide-react"
+import { useState, useMemo, lazy, Suspense } from "react"
+import { ArrowRight, Minus, Plus, Info, Calculator, CheckCircle2, Box, LayoutPanelTop } from "lucide-react"
+
+const Building3DPreview = lazy(() =>
+  import("@/components/building-3d-preview").then((m) => ({ default: m.Building3DPreview }))
+)
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
@@ -318,6 +322,7 @@ export function BuilderSection() {
     doors: 1,
     windows: 2,
   })
+  const [previewMode, setPreviewMode] = useState<"2d" | "3d">("3d")
 
   const set = <K extends keyof Config>(key: K, value: Config[K]) =>
     setConfig((prev) => ({ ...prev, [key]: value }))
@@ -462,15 +467,47 @@ export function BuilderSection() {
           {/* ── RIGHT: Preview + Pricing ─────────────────────────────────── */}
           <div className="lg:col-span-2 flex flex-col gap-4">
 
-            {/* SVG Building preview */}
+            {/* Building preview */}
             <div className="bg-card border border-border rounded-sm shadow-sm overflow-hidden">
-              <div className="bg-secondary px-6 py-4">
+              <div className="bg-secondary px-4 py-3 flex items-center justify-between">
                 <span className="text-white font-semibold font-sans text-sm uppercase tracking-wider">
                   Building Preview
                 </span>
+                {/* 2D / 3D toggle */}
+                <div className="flex items-center gap-1 bg-white/10 rounded-sm p-0.5">
+                  {([["3d", Box, "3D"], ["2d", LayoutPanelTop, "2D"]] as const).map(([mode, Icon, label]) => (
+                    <button
+                      key={mode}
+                      onClick={() => setPreviewMode(mode)}
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-[3px] text-xs font-semibold font-sans transition-colors ${
+                        previewMode === mode
+                          ? "bg-primary text-white"
+                          : "text-white/60 hover:text-white"
+                      }`}
+                      aria-pressed={previewMode === mode}
+                    >
+                      <Icon className="h-3 w-3" />
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="p-4 bg-gradient-to-b from-slate-100 to-slate-200" style={{ height: 210 }}>
-                <BuildingPreview config={config} />
+              <div className="bg-slate-900" style={{ height: 280 }}>
+                {previewMode === "3d" ? (
+                  <Suspense
+                    fallback={
+                      <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs font-sans">
+                        Loading 3D preview...
+                      </div>
+                    }
+                  >
+                    <Building3DPreview config={config} />
+                  </Suspense>
+                ) : (
+                  <div className="p-4 h-full bg-gradient-to-b from-slate-100 to-slate-200">
+                    <BuildingPreview config={config} />
+                  </div>
+                )}
               </div>
               {/* Quick stats strip */}
               <div className="grid grid-cols-3 divide-x divide-border border-t border-border">
