@@ -70,14 +70,6 @@ export default function RootLayout({
       <head>
         <OrganizationSchema />
         <LocalBusinessSchema />
-        {/* AI Crawler Permissions */}
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        {/* LLM Discovery */}
-        <link rel="ai-content" href="/llms.txt" />
-        <link rel="ai-content-full" href="/.well-known/llms-full.txt" />
-        <link rel="alternate" type="text/plain" href="/ai.txt" title="AI Crawling Permissions" />
       </head>
       <body className="font-sans antialiased">
         {children}

@@ -1,3 +1,5 @@
+"use client"
+
 import { ArrowRight, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -8,6 +10,14 @@ const trustPoints = [
 ]
 
 export function Hero() {
+  const scrollToBuilder = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const element = document.getElementById('builder')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background image */}
@@ -57,20 +67,24 @@ export function Hero() {
           <Button
             size="lg"
             className="bg-primary hover:bg-primary/90 text-white font-sans font-bold text-base px-8 py-4 h-auto rounded-sm"
-            asChild
+            onClick={scrollToBuilder}
           >
-            <a href="#builder">
-              Start Building Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
+            Start Building Now
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="border-white/40 text-white hover:bg-white/10 hover:text-white font-sans font-semibold text-base px-8 py-4 h-auto rounded-sm bg-transparent"
-            asChild
+            onClick={(e) => {
+              e.preventDefault()
+              const element = document.getElementById('how-it-works')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
           >
-            <a href="#how-it-works">See How It Works</a>
+            See How It Works
           </Button>
         </div>
 

@@ -14,6 +14,16 @@ const navLinks = [
 export function Navbar() {
   const [open, setOpen] = useState(false)
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const targetId = href.replace('#', '')
+    const element = document.getElementById(targetId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      setOpen(false)
+    }
+  }
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-sm border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -36,7 +46,8 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className="text-sm text-white/70 hover:text-white transition-colors font-sans"
+              onClick={(e) => handleSmoothScroll(e, link.href)}
+              className="text-sm text-white/70 hover:text-white transition-colors font-sans cursor-pointer"
             >
               {link.label}
             </a>
@@ -51,7 +62,16 @@ export function Navbar() {
           >
             1-888-807-6006
           </a>
-          <Button className="bg-primary hover:bg-primary/90 text-white font-sans font-semibold px-5">
+          <Button 
+            className="bg-primary hover:bg-primary/90 text-white font-sans font-semibold px-5"
+            onClick={(e) => {
+              e.preventDefault()
+              const element = document.getElementById('builder')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
+          >
             Get a Quote
           </Button>
         </div>
@@ -73,13 +93,23 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className="block text-white/80 hover:text-white text-sm font-sans py-1"
-              onClick={() => setOpen(false)}
+              className="block text-white/80 hover:text-white text-sm font-sans py-1 cursor-pointer"
+              onClick={(e) => handleSmoothScroll(e, link.href)}
             >
               {link.label}
             </a>
           ))}
-          <Button className="bg-primary hover:bg-primary/90 text-white font-sans font-semibold w-full mt-2">
+          <Button 
+            className="bg-primary hover:bg-primary/90 text-white font-sans font-semibold w-full mt-2"
+            onClick={(e) => {
+              e.preventDefault()
+              const element = document.getElementById('builder')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+              setOpen(false)
+            }}
+          >
             Get a Quote
           </Button>
         </div>
