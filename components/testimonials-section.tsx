@@ -60,14 +60,14 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="bg-muted py-24 scroll-mt-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="testimonials" className="bg-muted py-14 sm:py-24 scroll-mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary font-sans text-xs uppercase tracking-widest">
             Customer Stories
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
             Trusted by Builders Nationwide
           </h2>
           <p className="text-muted-foreground font-sans max-w-xl mx-auto leading-relaxed">

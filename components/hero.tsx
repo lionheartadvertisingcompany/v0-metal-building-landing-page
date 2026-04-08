@@ -30,7 +30,7 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 pt-40 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 pt-28 sm:pt-40 text-center">
         {/* Eyebrow */}
         <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-4 py-1.5 mb-8">
           <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
@@ -40,14 +40,14 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance font-sans mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance font-sans mb-6">
           Design Your Metal Building
-          <br />
-          <span className="text-primary">&amp; Get Instant Pricing</span>
+          <br className="hidden sm:block" />
+          <span className="text-primary"> &amp; Get Instant Pricing</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed font-sans text-pretty">
+        <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-sans text-pretty">
           Customize every dimension, configure your doors, windows, and insulation, 
           then receive a detailed quote in seconds — no sales calls required.
         </p>
@@ -75,7 +75,7 @@ export function Hero() {
         </div>
 
         {/* Trust bullets */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
           {trustPoints.map((point) => (
             <div key={point} className="flex items-center gap-2 text-white/60 text-sm font-sans">
               <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
@@ -85,16 +85,16 @@ export function Hero() {
         </div>
 
         {/* Stats bar */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-sm overflow-hidden border border-white/10">
+        <div className="mt-12 sm:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-sm overflow-hidden border border-white/10">
           {[
             { value: "1,500+", label: "Buildings Delivered" },
             { value: "50 States", label: "Nationwide Shipping" },
             { value: "50+", label: "Years Experience" },
             { value: "100%", label: "American Made" },
           ].map((stat) => (
-            <div key={stat.label} className="bg-secondary/60 backdrop-blur px-6 py-5 text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white font-sans">{stat.value}</div>
-              <div className="text-xs text-white/50 font-sans mt-1 uppercase tracking-wide">{stat.label}</div>
+            <div key={stat.label} className="bg-secondary/60 backdrop-blur px-4 py-4 sm:px-6 sm:py-5 text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white font-sans">{stat.value}</div>
+              <div className="text-[10px] sm:text-xs text-white/50 font-sans mt-1 uppercase tracking-wide">{stat.label}</div>
             </div>
           ))}
         </div>

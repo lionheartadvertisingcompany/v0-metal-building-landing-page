@@ -199,7 +199,7 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
       onClick={(e) => { if (e.target === e.currentTarget) handleClose() }}
     >
       {/* Panel */}
-      <div className="relative w-full max-w-lg bg-card rounded-sm shadow-2xl border border-border overflow-hidden">
+      <div className="relative w-full max-w-lg bg-card rounded-sm shadow-2xl border border-border overflow-hidden max-h-[90dvh] flex flex-col">
 
         {/* Header */}
         <div className="bg-secondary px-6 py-5 flex items-center justify-between">
@@ -258,9 +258,9 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
           </div>
         ) : (
           /* ── Form state ── */
-          <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit} noValidate className="flex flex-col min-h-0">
             {/* Pricing recap strip */}
-            <div className="bg-primary/5 border-b border-primary/10 px-6 py-3 flex items-center justify-between gap-4">
+            <div className="bg-primary/5 border-b border-primary/10 px-6 py-3 flex items-center justify-between gap-4 flex-shrink-0">
               <div>
                 <p className="text-[10px] text-muted-foreground font-sans uppercase tracking-widest">Your Configuration</p>
                 <p className="text-sm font-semibold text-foreground font-sans mt-0.5">
@@ -274,7 +274,7 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
             </div>
 
             {/* Fields */}
-            <div className="px-6 py-6 space-y-4">
+            <div className="px-6 py-6 space-y-4 overflow-y-auto">
               <Field
                 id="name"
                 label="Full Name"
@@ -294,7 +294,7 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
                 error={errors.email}
                 onChange={setField("email")}
               />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field
                   id="phone"
                   label="Phone Number"
@@ -318,7 +318,7 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
             </div>
 
             {/* Footer */}
-            <div className="px-6 pb-6 flex flex-col gap-3">
+            <div className="px-6 pb-6 flex flex-col gap-3 flex-shrink-0">
               <Button
                 type="submit"
                 disabled={status === "submitting"}

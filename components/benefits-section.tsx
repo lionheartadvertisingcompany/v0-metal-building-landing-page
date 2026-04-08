@@ -54,14 +54,14 @@ const benefits = [
 
 export function BenefitsSection() {
   return (
-    <section id="benefits" className="bg-white py-24 scroll-mt-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="benefits" className="bg-white py-14 sm:py-24 scroll-mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary font-sans text-xs uppercase tracking-widest">
             Why Steel
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
             The Smarter Way to Build
           </h2>
           <p className="text-muted-foreground font-sans max-w-xl mx-auto leading-relaxed">
@@ -76,7 +76,7 @@ export function BenefitsSection() {
             return (
               <div
                 key={benefit.title}
-                className="group border border-border rounded-sm p-8 hover:border-primary/40 hover:shadow-md transition-all duration-200 bg-white"
+                className="group border border-border rounded-sm p-5 sm:p-8 hover:border-primary/40 hover:shadow-md transition-all duration-200 bg-white"
               >
                 <div className="flex items-start justify-between mb-5">
                   <div className="p-3 bg-primary/10 rounded-sm group-hover:bg-primary/15 transition-colors">

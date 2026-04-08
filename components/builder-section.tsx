@@ -347,15 +347,15 @@ export function BuilderSection() {
   ]
 
   return (
-    <section id="builder" className="bg-muted py-24 scroll-mt-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="builder" className="bg-muted py-14 sm:py-24 scroll-mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Section header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-8 sm:mb-14">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary font-sans text-xs uppercase tracking-widest">
             Instant Quote Tool
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
             Configure Your Building
           </h2>
           <p className="text-muted-foreground font-sans max-w-xl mx-auto leading-relaxed">
@@ -457,7 +457,7 @@ export function BuilderSection() {
                 <h3 className="text-[11px] font-bold text-muted-foreground font-sans uppercase tracking-widest border-b border-border pb-2">
                   Openings
                 </h3>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-5">
                   <Counter label="Roll-up Doors — $1,200 ea." value={config.doors} min={0} max={12} onChange={(v) => set("doors", v)} />
                   <Counter label="Windows — $250 ea." value={config.windows} min={0} max={20} onChange={(v) => set("windows", v)} />
                 </div>
@@ -531,7 +531,7 @@ export function BuilderSection() {
               <div className="px-6 pt-6 pb-5">
                 <p className="text-white/60 text-[11px] font-sans uppercase tracking-widest mb-1">Estimated Price</p>
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-4xl font-bold text-white font-sans tabular-nums">{fmt(pricing.subtotal)}</span>
+                  <span className="text-3xl sm:text-4xl font-bold text-white font-sans tabular-nums">{fmt(pricing.subtotal)}</span>
                 </div>
                 {/* ±10% range bar */}
                 <div className="mt-3 flex items-center justify-between text-[11px] font-sans mb-1">

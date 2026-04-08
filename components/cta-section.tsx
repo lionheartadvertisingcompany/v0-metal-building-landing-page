@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button"
 
 export function CtaSection() {
   return (
-    <section className="bg-primary py-24">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-white font-sans text-balance mb-6 leading-tight">
+    <section className="bg-primary py-14 sm:py-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white font-sans text-balance mb-6 leading-tight">
           Have Any Questions? Call Us Now!
         </h2>
         <p className="text-white/80 font-sans text-lg leading-relaxed mb-10 max-w-2xl mx-auto text-pretty">
@@ -13,7 +13,7 @@ export function CtaSection() {
           we can provide you with a quick quote. We look forward to speaking with you!
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 sm:mb-14">
           <Button
             size="lg"
             className="bg-white text-primary hover:bg-white/90 font-sans font-bold text-base px-10 py-4 h-auto rounded-sm"

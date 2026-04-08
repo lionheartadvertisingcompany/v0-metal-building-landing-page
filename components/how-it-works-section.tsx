@@ -28,14 +28,14 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="bg-secondary py-24 scroll-mt-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="how-it-works" className="bg-secondary py-14 sm:py-24 scroll-mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary font-sans text-xs uppercase tracking-widest">
             The Process
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-white font-sans text-balance mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white font-sans text-balance mb-4">
             From Idea to Building in 3 Steps
           </h2>
           <p className="text-white/60 font-sans max-w-xl mx-auto leading-relaxed">
@@ -47,7 +47,7 @@ export function HowItWorksSection() {
         {/* Steps */}
         <div className="grid md:grid-cols-3 gap-px bg-white/10 rounded-sm overflow-hidden mb-12">
           {steps.map((step, index) => (
-            <div key={step.number} className="relative bg-secondary p-10 group hover:bg-white/5 transition-colors">
+            <div key={step.number} className="relative bg-secondary p-6 sm:p-10 group hover:bg-white/5 transition-colors">
               {/* Connector arrow (desktop) */}
               {index < steps.length - 1 && (
                 <ArrowRight className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 h-6 w-6 text-primary z-10" />

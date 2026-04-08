@@ -68,14 +68,14 @@ export function BuildingTypesSection() {
   const ActiveIcon = active.icon
 
   return (
-    <section id="building-types" className="bg-white py-24 scroll-mt-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="building-types" className="bg-white py-14 sm:py-24 scroll-mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-8 sm:mb-14">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary font-sans text-xs uppercase tracking-widest">
             Building Types
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground font-sans text-balance mb-4">
             Steel Buildings Designed to Your Specifications
           </h2>
           <p className="text-muted-foreground font-sans max-w-2xl mx-auto leading-relaxed">
@@ -107,8 +107,8 @@ export function BuildingTypesSection() {
           </div>
 
           {/* Active type detail */}
-          <div className="lg:col-span-2 bg-muted rounded-sm p-8 lg:p-12">
-            <div className="flex items-start gap-4 mb-6">
+          <div className="lg:col-span-2 bg-muted rounded-sm p-6 sm:p-8 lg:p-12">
+            <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
               <div className="p-4 bg-primary/10 rounded-sm">
                 <ActiveIcon className="h-8 w-8 text-primary" />
               </div>

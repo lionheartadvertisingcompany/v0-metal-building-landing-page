@@ -8,10 +8,10 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="bg-secondary border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mb-10 sm:mb-12">
           {/* Brand column */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2 sm:col-span-3 md:col-span-1">
             <div className="flex items-center gap-2 text-white mb-4">
               <img 
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/titan%20steel%20structures%20logo-y6dkkVGPMuFB8ZzpSGTDzYmelRlLJt.png"

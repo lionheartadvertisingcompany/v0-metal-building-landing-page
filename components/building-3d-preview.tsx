@@ -255,6 +255,10 @@ export function Building3DPreview({ config }: { config: BuildingConfig }) {
       shadows
       camera={{ position: [camZ * 0.7, camY + 0.5, camZ], fov: 45, near: 0.1, far: 200 }}
       gl={{ antialias: true }}
+      onCreated={({ gl }) => {
+        // Suppress harmless shader precision warnings (GPU-specific noise)
+        gl.debug.checkShaderErrors = false
+      }}
       style={{ width: "100%", height: "100%" }}
       aria-label={`3D preview of a ${config.width}ft × ${config.length}ft × ${config.height}ft ${config.roofStyle} roof metal building`}
     >
