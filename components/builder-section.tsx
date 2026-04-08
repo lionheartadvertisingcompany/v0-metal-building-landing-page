@@ -10,18 +10,11 @@ import { Button } from "@/components/ui/button"
 import { QuoteModal } from "@/components/quote-modal"
 import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-type RoofStyle = "gable" | "single-slope"
+type RoofStyle = "gable" | "single-slope" | "standing-seam"
 type Gauge = "12" | "14"
 type DoorType = "walk" | "rollup" | "sectional" | "sliding"
 type WindowType = "fixed" | "sliding" | "singlehung" | "specialty"
@@ -98,7 +91,40 @@ const DOOR_DEFS: DoorDef[] = [
 ]
 
 // ---------------------------------------------------------------------------
-// Window definitions
+// Roof definitions
+// ---------------------------------------------------------------------------
+interface RoofDef {
+  key: RoofStyle
+  label: string
+  description: string
+  benefits: string[]
+  priceModifier: number // multiplier on structural cost (0 = no change, 0.06 = +6%)
+}
+
+const ROOF_DEFS: RoofDef[] = [
+  {
+    key: "gable",
+    label: "Gable (Pitched)",
+    description: "Classic A-frame design with symmetrical double pitch. Excellent for snow/water drainage.",
+    benefits: ["Optimal drainage", "Classic appearance", "Great for climate zones"],
+    priceModifier: 0,
+  },
+  {
+    key: "single-slope",
+    label: "Single Slope (Shed)",
+    description: "One-directional sloped roof. Modern, economical design with unobstructed interior.",
+    benefits: ["Cost-effective", "Modern aesthetic", "Maximum clear span"],
+    priceModifier: 0.10, // 10% premium as per existing pricing
+  },
+  {
+    key: "standing-seam",
+    label: "Standing Seam (Premium)",
+    description: "Concealed fastener system with raised seams. Superior weather resistance and durability.",
+    benefits: ["Best weather protection", "50+ year lifespan", "Concealed fasteners", "Premium finish"],
+    priceModifier: 0.06, // 6% premium on top of base rate
+  },
+]
+
 // ---------------------------------------------------------------------------
 interface WindowDef {
   key: WindowType
@@ -143,20 +169,25 @@ const WINDOW_DEFS: WindowDef[] = [
 // Pricing logic
 //   Base rate:        $12 / sq ft
 //   12 gauge:         +$2 / sq ft
-//   Single slope:     +10% on structural cost
+//   Roof style:       Gable: no change; Single Slope: +10%; Standing Seam: +6%
 //   Doors:            per type (see DOOR_DEFS)
 //   Windows:          per type (see WINDOW_DEFS)
 //   Price range:      ±10% of estimated total
 // ---------------------------------------------------------------------------
 const BASE_RATE_PER_SQFT    = 12    // $/sq ft
 const GAUGE_12_PREMIUM      = 2     // $/sq ft added for 12 gauge
-const SINGLE_SLOPE_SURCHARGE = 0.10 // 10% on structural cost
+const SINGLE_SLOPE_SURCHARGE = 0.10 // 10% on structural cost (deprecated, use ROOF_DEFS)
 
 function calcPricing(c: Config) {
   const sqFt        = c.width * c.length
   const ratePerSqFt = BASE_RATE_PER_SQFT + (c.gauge === "12" ? GAUGE_12_PREMIUM : 0)
   let structuralCost = sqFt * ratePerSqFt
-  if (c.roofStyle === "single-slope") structuralCost *= (1 + SINGLE_SLOPE_SURCHARGE)
+  
+  // Apply roof style price modifier
+  const roofDef = ROOF_DEFS.find((r) => r.key === c.roofStyle)
+  if (roofDef && roofDef.priceModifier > 0) {
+    structuralCost *= (1 + roofDef.priceModifier)
+  }
 
   // Door costs per type
   const doorBreakdown = DOOR_DEFS.map((d) => ({
@@ -225,7 +256,7 @@ function BuildingPreview({ config }: { config: Config }) {
   // Roof
   const ridgeX = startX + drawWidth / 2
   const ridgeY = wallTop - (config.roofStyle === "gable" ? drawHeight * 0.28 : 0)
-  const eaveRightY = config.roofStyle === "single-slope" ? wallTop - drawHeight * 0.22 : wallTop
+  const eaveRightY = config.roofStyle === "single-slope" || config.roofStyle === "standing-seam" ? wallTop - drawHeight * 0.22 : wallTop
 
   // Doors (up to 4 visible)
   const doorW = Math.max(10, drawWidth * 0.1)
@@ -262,7 +293,9 @@ function BuildingPreview({ config }: { config: Config }) {
       viewBox={`0 0 ${W} ${H}`}
       width="100%"
       height="100%"
-      aria-label={`Building preview: ${config.width}ft wide, ${config.length}ft long, ${config.height}ft tall, ${config.roofStyle} roof`}
+        aria-label={`Building preview: ${config.width}ft wide, ${config.length}ft long, ${config.height}ft tall, ${
+          ROOF_DEFS.find((r) => r.key === config.roofStyle)?.label || config.roofStyle
+        } roof`}
     >
       {/* Sky gradient background */}
       <defs>
@@ -478,7 +511,7 @@ export function BuilderSection() {
 
   const summaryRows = [
     { label: "Dimensions", value: `${config.width}′ W × ${config.length}′ L × ${config.height}′ H` },
-    { label: "Roof Style", value: config.roofStyle === "gable" ? "Gable (A-Frame)" : "Single Slope" },
+    { label: "Roof Style", value: ROOF_DEFS.find((r) => r.key === config.roofStyle)?.label || "Gable" },
     { label: "Steel Gauge", value: `${config.gauge} gauge` },
     { label: "Square Footage", value: `${pricing.sqFt.toLocaleString()} sq ft` },
     { label: "Base Rate / sq ft", value: `$${pricing.ratePerSqFt}` },
@@ -535,15 +568,46 @@ export function BuilderSection() {
                 <h3 className="text-[11px] font-bold text-muted-foreground font-sans uppercase tracking-widest border-b border-border pb-2">
                   Roof Style
                 </h3>
-                <Select value={config.roofStyle} onValueChange={(v) => set("roofStyle", v as RoofStyle)}>
-                  <SelectTrigger className="w-full font-sans bg-background border-border h-10 rounded-sm focus:ring-primary">
-                    <SelectValue placeholder="Select roof style" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="gable" className="font-sans">Gable (A-Frame) — symmetric double pitch</SelectItem>
-                    <SelectItem value="single-slope" className="font-sans">Single Slope — one-directional drainage</SelectItem>
-                  </SelectContent>
-                </Select>
+                {ROOF_DEFS.map((roof) => (
+                  <button
+                    key={roof.key}
+                    onClick={() => set("roofStyle", roof.key)}
+                    className={`w-full text-left rounded-sm border-2 p-4 transition-all ${
+                      config.roofStyle === roof.key
+                        ? "border-primary bg-primary/5"
+                        : "border-border bg-background hover:border-primary/50 hover:bg-muted/50"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div>
+                        <h4 className="font-bold text-sm font-sans text-foreground">{roof.label}</h4>
+                        <p className="text-xs text-muted-foreground font-sans mt-1 leading-snug">{roof.description}</p>
+                      </div>
+                      {config.roofStyle === roof.key && (
+                        <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                      )}
+                    </div>
+                    {/* Benefits badges */}
+                    <div className="flex flex-wrap gap-1 mt-3">
+                      {roof.benefits.map((benefit) => (
+                        <span
+                          key={benefit}
+                          className="inline-block text-[9px] font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-2 py-1 rounded"
+                        >
+                          {benefit}
+                        </span>
+                      ))}
+                    </div>
+                    {/* Price modifier badge */}
+                    {roof.priceModifier > 0 && (
+                      <div className="mt-3 pt-3 border-t border-border">
+                        <span className="text-[10px] font-bold text-primary font-sans">
+                          +{Math.round(roof.priceModifier * 100)}% premium
+                        </span>
+                      </div>
+                    )}
+                  </button>
+                ))}
               </div>
 
               {/* Steel gauge */}
