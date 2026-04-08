@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { categorySlugMap } from "@/lib/category-data"
 
 const productLinks = [
@@ -68,12 +69,12 @@ export function Footer() {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-white/50 hover:text-white text-sm font-sans transition-colors"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
