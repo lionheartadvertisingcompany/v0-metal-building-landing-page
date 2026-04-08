@@ -27,7 +27,7 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
     { label: "Quote Request", href: "#builder" },
     { label: "Technical Specs", href: "#" },
     { label: "Installation Guide", href: "#" },
-    { label: "FAQ", href: "#" },
+    { label: "FAQ", href: "/faq" },
   ],
   Legal: [
     { label: "Privacy Policy", href: "#" },
