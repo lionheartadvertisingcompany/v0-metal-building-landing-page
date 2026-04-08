@@ -6,7 +6,7 @@ export function SteelBuildingPricingInfo() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-sans mb-4 text-balance">
-            Steel Building Cost Calculator & Pricing Guide
+            Metal Buildings Prices: Steel Building Cost Calculator & Pricing Guide
           </h2>
           <p className="text-lg text-muted-foreground font-sans leading-relaxed">
             Understanding the cost to build a metal building has never been easier. Our steel building cost calculator provides instant pricing based on your specific dimensions and customization options.
