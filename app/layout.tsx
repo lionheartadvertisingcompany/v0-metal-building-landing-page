@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'SteelForge Buildings | Prefab Metal Building Calculator',
+  description: 'Design your custom prefabricated metal building and get instant pricing. Durable, cost-effective, and fully customizable steel structures.',
   generator: 'v0.app',
   icons: {
     icon: [
