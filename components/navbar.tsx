@@ -45,12 +45,9 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <a 
-            href="tel:+18888076006" 
-            className="text-sm text-white/90 hover:text-white transition-colors font-sans font-semibold"
-          >
-            1-888-807-6006
-          </a>
+          <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10 font-sans">
+            Sign In
+          </Button>
           <Button className="bg-primary hover:bg-primary/90 text-white font-sans font-semibold px-5">
             Get a Quote
           </Button>
