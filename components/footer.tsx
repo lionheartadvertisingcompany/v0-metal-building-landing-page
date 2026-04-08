@@ -1,8 +1,39 @@
-const footerLinks = {
-  Products: ["Agricultural Buildings", "Commercial Structures", "Equestrian Facilities", "Aviation Hangars", "Retail & Office", "Storage Solutions"],
-  Company: ["About Us", "Case Studies", "Sustainability", "Press", "Careers"],
-  Resources: ["Building Calculator", "Quote Request", "Technical Specs", "Installation Guide", "FAQ"],
-  Legal: ["Privacy Policy", "Terms of Service", "Warranty Information", "Accessibility"],
+import { categorySlugMap } from "@/lib/category-data"
+
+const productLinks = [
+  "Agricultural Buildings",
+  "Commercial Structures",
+  "Equestrian Facilities",
+  "Aviation Hangars",
+  "Retail & Office",
+  "Storage Solutions",
+]
+
+const footerLinks: Record<string, { label: string; href: string }[]> = {
+  Products: productLinks.map((label) => ({
+    label,
+    href: categorySlugMap[label] ?? "#",
+  })),
+  Company: [
+    { label: "About Us", href: "#" },
+    { label: "Case Studies", href: "#" },
+    { label: "Sustainability", href: "#" },
+    { label: "Press", href: "#" },
+    { label: "Careers", href: "#" },
+  ],
+  Resources: [
+    { label: "Building Calculator", href: "#builder" },
+    { label: "Quote Request", href: "#builder" },
+    { label: "Technical Specs", href: "#" },
+    { label: "Installation Guide", href: "#" },
+    { label: "FAQ", href: "#" },
+  ],
+  Legal: [
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Service", href: "#" },
+    { label: "Warranty Information", href: "#" },
+    { label: "Accessibility", href: "#" },
+  ],
 }
 
 export function Footer() {
@@ -36,12 +67,12 @@ export function Footer() {
               </h4>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <a
-                      href="#"
+                      href={link.href}
                       className="text-white/50 hover:text-white text-sm font-sans transition-colors"
                     >
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}
