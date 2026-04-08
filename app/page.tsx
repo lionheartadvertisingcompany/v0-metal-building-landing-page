@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { BuildingTypesSection } from "@/components/building-types-section"
 import { BuilderSection } from "@/components/builder-section"
 import { BenefitsSection } from "@/components/benefits-section"
 import { HowItWorksSection } from "@/components/how-it-works-section"
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <BuildingTypesSection />
         <BuilderSection />
         <BenefitsSection />
         <HowItWorksSection />

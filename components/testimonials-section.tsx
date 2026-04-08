@@ -3,31 +3,31 @@ import { Badge } from "@/components/ui/badge"
 
 const testimonials = [
   {
-    name: "Marcus T.",
-    role: "Owner, T&T Logistics",
-    location: "Dallas, TX",
-    initials: "MT",
+    name: "Robert H.",
+    role: "Ranch Owner",
+    location: "Texas",
+    initials: "RH",
     stars: 5,
     quote:
-      "We needed a 10,000 sq ft distribution center fast. SteelForge had our quote same-day and the building was delivered in 7 weeks. Our GC said he&apos;d never seen components labeled so precisely. Assembly went without a hitch.",
+      "Our 150x275x18 steel riding arena has been a game changer. The clear span design lets our customers enjoy riding all year long. The American-made steel quality is evident in every component.",
   },
   {
     name: "Sandra R.",
     role: "Farm Operations Manager",
-    location: "Salinas, CA",
+    location: "Arizona",
     initials: "SR",
     stars: 5,
     quote:
-      "Compared four prefab companies. SteelForge beat everyone on price by 15% and the online configurator made it easy to get exactly what we needed — a 60x120 barn with two 16-ft sliding doors. Absolutely thrilled.",
+      "We needed a 30x45x14 metal shop building for our equipment. The customer service was exceptional — they helped us design exactly what we needed. Safe, secure, and built to last.",
   },
   {
     name: "Derek M.",
     role: "General Contractor",
-    location: "Nashville, TN",
+    location: "Utah",
     initials: "DM",
     stars: 5,
     quote:
-      "I&apos;ve ordered six buildings from SteelForge over the past three years for commercial clients. Every single one arrived on time, within spec. The engineering drawings are always stamped and ready to permit.",
+      "Built a 60x100x12 steel retail store for my client. The pre-engineered components went together perfectly. Engineering drawings were stamped and ready for permit. Will definitely use again.",
   },
   {
     name: "Lisa B.",
@@ -36,25 +36,25 @@ const testimonials = [
     initials: "LB",
     stars: 5,
     quote:
-      "Expanded my shop with a 40x80 clear-span garage. The 16-foot eave height and insulation package were exactly what I needed. My utility bills are lower than expected and the building looks fantastic.",
+      "Expanded my business with a metal shop building. The flexibility in design options helped me create exactly what I needed. Clear span interior means no columns in the way. Perfect.",
   },
   {
     name: "James O.",
-    role: "Real Estate Developer",
-    location: "Atlanta, GA",
+    role: "Homeowner",
+    location: "Colorado",
     initials: "JO",
     stars: 5,
     quote:
-      "Built two industrial flex spaces for lease. Tenants love the clear span interiors — no columns to work around. I saved $180k compared to tilt-up concrete and had both buildings ready 4 months sooner.",
+      "Our 30x72x15 metal barndominium exceeded expectations. Pre-engineered steel construction at a fraction of traditional costs. The team walked us through every step of the process.",
   },
   {
     name: "Karen W.",
     role: "Equestrian Center Director",
-    location: "Lexington, KY",
+    location: "Kentucky",
     initials: "KW",
     stars: 5,
     quote:
-      "The 100x200 arena came out beautifully. The vertical roof keeps our horses dry through heavy rains and the skylights SteelForge suggested keep it bright inside. Couldn&apos;t be happier with the whole experience.",
+      "The steel riding arena is perfect for our horses. 100% American-made steel, clear span design, and the vertical roof keeps everything dry. Couldn&apos;t be happier with the experience.",
   },
 ]
 
@@ -71,7 +71,7 @@ export function TestimonialsSection() {
             Trusted by Builders Nationwide
           </h2>
           <p className="text-muted-foreground font-sans max-w-xl mx-auto leading-relaxed">
-            Over 10,000 buildings delivered. Here&apos;s what our customers have to say.
+            Over 1,500 satisfied customers nationwide. Here&apos;s what they have to say.
           </p>
         </div>
 

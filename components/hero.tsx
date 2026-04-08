@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 const trustPoints = [
   "No obligation, instant estimate",
-  "Ships in 6–8 weeks",
+  "100% American-made steel",
   "50-year structural warranty",
 ]
 
@@ -87,10 +87,10 @@ export function Hero() {
         {/* Stats bar */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-sm overflow-hidden border border-white/10">
           {[
-            { value: "10,000+", label: "Buildings Delivered" },
-            { value: "40 States", label: "Nationwide Coverage" },
-            { value: "6–8 Wks", label: "Avg. Lead Time" },
-            { value: "50 Yr", label: "Structural Warranty" },
+            { value: "1,500+", label: "Buildings Delivered" },
+            { value: "50 States", label: "Nationwide Shipping" },
+            { value: "50+", label: "Years Experience" },
+            { value: "100%", label: "American Made" },
           ].map((stat) => (
             <div key={stat.label} className="bg-secondary/60 backdrop-blur px-6 py-5 text-center">
               <div className="text-2xl md:text-3xl font-bold text-white font-sans">{stat.value}</div>

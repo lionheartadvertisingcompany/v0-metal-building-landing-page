@@ -6,11 +6,11 @@ export function CtaSection() {
     <section className="bg-primary py-24">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-white font-sans text-balance mb-6 leading-tight">
-          Ready to Start Your Project?
+          Have Any Questions? Call Us Now!
         </h2>
         <p className="text-white/80 font-sans text-lg leading-relaxed mb-10 max-w-2xl mx-auto text-pretty">
-          Get your custom quote in minutes. No sales pressure, no hidden fees — just a straightforward 
-          price for the exact building you need.
+          We are excited to work with you to create your ideal steel structure. Give us a call and 
+          we can provide you with a quick quote. We look forward to speaking with you!
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
@@ -36,11 +36,11 @@ export function CtaSection() {
         {/* Contact quick links */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 border-t border-white/20">
           <a
-            href="tel:+18005551234"
+            href="tel:+18888076006"
             className="flex items-center gap-2 text-white/80 hover:text-white font-sans text-sm transition-colors"
           >
             <Phone className="h-4 w-4" />
-            1-800-555-1234
+            1-888-807-6006
           </a>
           <a
             href="mailto:quotes@steelforge.com"

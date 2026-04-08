@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
 
-const buildingTypes = ["Warehouse", "Garage", "Workshop", "Barn", "Retail", "Office"]
+const buildingTypes = ["Agricultural", "Commercial", "Residential", "Aviation", "Equestrian", "Storage", "Automotive", "Retail/Office"]
 const roofStyles = ["Vertical Roof", "A-Frame Horizontal", "Regular Style"]
 
 function formatCurrency(n: number) {
@@ -15,7 +15,7 @@ function formatCurrency(n: number) {
 
 function calcPrice(width: number, length: number, height: number, type: string): number {
   const baseSqFt = width * length
-  const baseRate = type === "Office" ? 28 : type === "Retail" ? 26 : 18
+  const baseRate = type === "Retail/Office" ? 28 : type === "Aviation" ? 24 : type === "Equestrian" ? 20 : 18
   const heightPremium = height > 14 ? (height - 14) * 0.4 : 0
   return Math.round(baseSqFt * (baseRate + heightPremium))
 }
@@ -24,7 +24,7 @@ export function BuilderSection() {
   const [width, setWidth] = useState(40)
   const [length, setLength] = useState(60)
   const [height, setHeight] = useState(14)
-  const [buildingType, setBuildingType] = useState("Warehouse")
+  const [buildingType, setBuildingType] = useState("Agricultural")
   const [roofStyle, setRoofStyle] = useState("Vertical Roof")
 
   const price = calcPrice(width, length, height, buildingType)

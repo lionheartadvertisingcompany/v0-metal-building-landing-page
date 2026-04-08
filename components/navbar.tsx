@@ -5,10 +5,10 @@ import { Menu, X, Building2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
-  { label: "Products", href: "#builder" },
+  { label: "Building Types", href: "#building-types" },
+  { label: "Get a Quote", href: "#builder" },
   { label: "Benefits", href: "#benefits" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Testimonials", href: "#testimonials" },
 ]
 
 export function Navbar() {
