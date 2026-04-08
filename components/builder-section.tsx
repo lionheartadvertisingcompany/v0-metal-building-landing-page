@@ -7,6 +7,7 @@ const Building3DPreview = lazy(() =>
   import("@/components/building-3d-preview").then((m) => ({ default: m.Building3DPreview }))
 )
 import { Button } from "@/components/ui/button"
+import { QuoteModal } from "@/components/quote-modal"
 import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -323,6 +324,7 @@ export function BuilderSection() {
     windows: 2,
   })
   const [previewMode, setPreviewMode] = useState<"2d" | "3d">("3d")
+  const [quoteOpen, setQuoteOpen] = useState(false)
 
   const set = <K extends keyof Config>(key: K, value: Config[K]) =>
     setConfig((prev) => ({ ...prev, [key]: value }))
@@ -576,9 +578,10 @@ export function BuilderSection() {
               <div className="px-6 pb-6 space-y-3">
                 <Button
                   size="lg"
+                  onClick={() => setQuoteOpen(true)}
                   className="w-full bg-primary hover:bg-primary/90 text-white font-sans font-bold rounded-sm h-12 text-sm"
                 >
-                  Get My Full Quote
+                  Get My Final Quote
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <p className="text-center text-white/30 text-[10px] font-sans leading-snug">
@@ -598,6 +601,13 @@ export function BuilderSection() {
           </div>
         </div>
       </div>
+
+      <QuoteModal
+        open={quoteOpen}
+        onClose={() => setQuoteOpen(false)}
+        pricing={pricing}
+        config={config}
+      />
     </section>
   )
 }
