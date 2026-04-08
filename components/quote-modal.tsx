@@ -258,7 +258,7 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
               Thank you, <strong className="text-foreground">{fields.name.split(" ")[0]}</strong>. Our team will review your{" "}
               <strong className="text-foreground">{config.width}′ × {config.length}′ × {config.height}′</strong> building
               configuration and reach out to <strong className="text-foreground">{fields.email}</strong> within 24 hours with a
-              detailed quote.
+              detailed quote. If you have questions, call us at <strong className="text-foreground">1-888-807-6006</strong>.
             </p>
             {/* Quote summary chip */}
             <div className="mt-2 bg-muted border border-border rounded-sm px-6 py-4 w-full text-left space-y-1.5">
