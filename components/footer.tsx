@@ -16,7 +16,7 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
   })),
   Company: [
     { label: "About Us", href: "/about" },
-    { label: "Case Studies", href: "#" },
+    { label: "Case Studies", href: "/case-studies" },
     { label: "Sustainability", href: "#" },
     { label: "Press", href: "#" },
     { label: "Careers", href: "#" },
