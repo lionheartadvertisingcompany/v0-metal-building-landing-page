@@ -1,10 +1,8 @@
-import { Building2 } from "lucide-react"
-
 const footerLinks = {
-  Products: ["Warehouses", "Garages & Workshops", "Agricultural Barns", "Retail & Office", "Carports & Canopies"],
-  Company: ["About Us", "Case Studies", "Careers", "Press"],
-  Resources: ["Building Calculator", "Size Guide", "Permit Help", "Contractor Network", "FAQ"],
-  Legal: ["Privacy Policy", "Terms of Service", "Warranty", "Accessibility"],
+  Products: ["Agricultural Buildings", "Commercial Structures", "Equestrian Facilities", "Aviation Hangars", "Retail & Office", "Storage Solutions"],
+  Company: ["About Us", "Case Studies", "Sustainability", "Press", "Careers"],
+  Resources: ["Building Calculator", "Quote Request", "Technical Specs", "Installation Guide", "FAQ"],
+  Legal: ["Privacy Policy", "Terms of Service", "Warranty Information", "Accessibility"],
 }
 
 export function Footer() {
@@ -15,13 +13,18 @@ export function Footer() {
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 text-white mb-4">
-              <Building2 className="h-7 w-7 text-primary" />
-              <span className="font-bold text-lg font-sans">
-                Steel<span className="text-primary">Forge</span>
-              </span>
+              <img 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/titan%20steel%20structures%20logo-y6dkkVGPMuFB8ZzpSGTDzYmelRlLJt.png"
+                alt="Titan Steel Structures"
+                className="h-8 w-auto"
+              />
+              <div className="flex flex-col">
+                <span className="font-bold text-sm font-sans">Titan</span>
+                <span className="text-xs text-white/70 font-sans">Steel Structures</span>
+              </div>
             </div>
             <p className="text-white/50 text-sm font-sans leading-relaxed">
-              America&apos;s premier prefabricated metal building supplier since 1988.
+              America&apos;s trusted prefabricated metal building provider. Quality American-made steel structures for every application.
             </p>
           </div>
 
@@ -49,7 +52,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm font-sans">
-            &copy; {new Date().getFullYear()} SteelForge Buildings, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Titan Steel Structures, Inc. All rights reserved.
           </p>
           <p className="text-white/30 text-xs font-sans">
             Prices shown are estimates. Final pricing confirmed by a specialist.

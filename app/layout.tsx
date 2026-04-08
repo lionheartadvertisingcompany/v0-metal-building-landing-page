@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'SteelForge Buildings | Prefab Metal Building Calculator',
-  description: 'Design your custom prefabricated metal building and get instant pricing. Durable, cost-effective, and fully customizable steel structures.',
+  title: 'Titan Steel Structures | Metal Building Calculator & Pricing',
+  description: 'Design your custom prefabricated metal building with Titan Steel Structures. Get instant pricing on agricultural, commercial, residential, and aviation buildings. American-made, 50-year warranty.',
   generator: 'v0.app',
   icons: {
     icon: [
