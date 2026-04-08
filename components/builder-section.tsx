@@ -24,12 +24,20 @@ import {
 type RoofStyle = "gable" | "single-slope"
 type Gauge = "12" | "14"
 type DoorType = "walk" | "rollup" | "sectional" | "sliding"
+type WindowType = "fixed" | "sliding" | "singlehung" | "specialty"
 
 interface DoorCounts {
   walk: number
   rollup: number
   sectional: number
   sliding: number
+}
+
+interface WindowCounts {
+  fixed: number
+  sliding: number
+  singlehung: number
+  specialty: number
 }
 
 interface Config {
@@ -39,7 +47,7 @@ interface Config {
   roofStyle: RoofStyle
   gauge: Gauge
   doorCounts: DoorCounts
-  windows: number
+  windowCounts: WindowCounts
 }
 
 // ---------------------------------------------------------------------------
@@ -90,17 +98,58 @@ const DOOR_DEFS: DoorDef[] = [
 ]
 
 // ---------------------------------------------------------------------------
+// Window definitions
+// ---------------------------------------------------------------------------
+interface WindowDef {
+  key: WindowType
+  label: string
+  description: string
+  price: number
+  max: number
+}
+
+const WINDOW_DEFS: WindowDef[] = [
+  {
+    key: "fixed",
+    label: "Fixed Window",
+    description: "Non-opening. Best for lighting in warehouses. Low cost, high efficiency.",
+    price: 150,
+    max: 24,
+  },
+  {
+    key: "sliding",
+    label: "Horizontal Sliding",
+    description: "Most common choice. Panels slide side-to-side for ventilation.",
+    price: 350,
+    max: 20,
+  },
+  {
+    key: "singlehung",
+    label: "Single-Hung",
+    description: "Classic style. Bottom sash moves vertically for airflow.",
+    price: 280,
+    max: 20,
+  },
+  {
+    key: "specialty",
+    label: "Specialty (Awning/Casement)",
+    description: "Enhanced ventilation. Hinged design for focused air control.",
+    price: 450,
+    max: 16,
+  },
+]
+
+// ---------------------------------------------------------------------------
 // Pricing logic
 //   Base rate:        $12 / sq ft
 //   12 gauge:         +$2 / sq ft
 //   Single slope:     +10% on structural cost
 //   Doors:            per type (see DOOR_DEFS)
-//   Window:           $250 each
+//   Windows:          per type (see WINDOW_DEFS)
 //   Price range:      ±10% of estimated total
 // ---------------------------------------------------------------------------
 const BASE_RATE_PER_SQFT    = 12    // $/sq ft
 const GAUGE_12_PREMIUM      = 2     // $/sq ft added for 12 gauge
-const WINDOW_COST           = 250   // per window
 const SINGLE_SLOPE_SURCHARGE = 0.10 // 10% on structural cost
 
 function calcPricing(c: Config) {
@@ -119,7 +168,18 @@ function calcPricing(c: Config) {
   }))
   const doorCost   = doorBreakdown.reduce((sum, d) => sum + d.cost, 0)
   const totalDoors = doorBreakdown.reduce((sum, d) => sum + d.count, 0)
-  const windowCost = c.windows * WINDOW_COST
+
+  // Window costs per type
+  const windowBreakdown = WINDOW_DEFS.map((w) => ({
+    key:   w.key,
+    label: w.label,
+    count: c.windowCounts[w.key],
+    cost:  c.windowCounts[w.key] * w.price,
+    unitPrice: w.price,
+  }))
+  const windowCost = windowBreakdown.reduce((sum, w) => sum + w.cost, 0)
+  const totalWindows = windowBreakdown.reduce((sum, w) => sum + w.count, 0)
+
   const subtotal   = structuralCost + doorCost + windowCost
   const low        = Math.round(subtotal * 0.90)
   const high       = Math.round(subtotal * 1.10)
@@ -134,6 +194,8 @@ function calcPricing(c: Config) {
     doorBreakdown,
     totalDoors,
     windowCost,
+    windowBreakdown,
+    totalWindows,
     ratePerSqFt,
   }
 }
@@ -168,7 +230,8 @@ function BuildingPreview({ config }: { config: Config }) {
   // Doors (up to 4 visible)
   const doorW = Math.max(10, drawWidth * 0.1)
   const doorH = Math.min(drawHeight * 0.65, doorW * 1.9)
-  const doorsToShow = Math.min(config.doors, 3)
+  const totalDoorsToShow = Object.values(config.doorCounts).reduce((sum, cnt) => sum + cnt, 0)
+  const doorsToShow = Math.min(totalDoorsToShow, 3)
   const doorPositions: number[] = []
   for (let i = 0; i < doorsToShow; i++) {
     const segment = drawWidth / (doorsToShow + 1)
@@ -178,7 +241,8 @@ function BuildingPreview({ config }: { config: Config }) {
   // Windows
   const winW = Math.max(8, drawWidth * 0.07)
   const winH = winW * 0.85
-  const windowsToShow = Math.min(config.windows, 4)
+  const totalWindowsToShow = Object.values(config.windowCounts).reduce((sum, cnt) => sum + cnt, 0)
+  const windowsToShow = Math.min(totalWindowsToShow, 4)
   const windowPositions: { x: number; y: number }[] = []
   for (let i = 0; i < windowsToShow; i++) {
     const segment = drawWidth / (windowsToShow + 1)
@@ -385,7 +449,7 @@ export function BuilderSection() {
     roofStyle: "gable",
     gauge: "14",
     doorCounts: { walk: 1, rollup: 1, sectional: 0, sliding: 0 },
-    windows: 2,
+    windowCounts: { fixed: 2, sliding: 0, singlehung: 0, specialty: 0 },
   })
   const [previewMode, setPreviewMode] = useState<"2d" | "3d">("3d")
   const [quoteOpen, setQuoteOpen] = useState(false)
@@ -396,6 +460,9 @@ export function BuilderSection() {
   const setDoor = (type: DoorType, count: number) =>
     setConfig((prev) => ({ ...prev, doorCounts: { ...prev.doorCounts, [type]: count } }))
 
+  const setWindow = (type: WindowType, count: number) =>
+    setConfig((prev) => ({ ...prev, windowCounts: { ...prev.windowCounts, [type]: count } }))
+
   const pricing = useMemo(() => calcPricing(config), [config])
 
   // Only show door types with count > 0 in breakdown; always show structure + windows
@@ -404,7 +471,9 @@ export function BuilderSection() {
     ...pricing.doorBreakdown
       .filter((d) => d.count > 0)
       .map((d) => ({ label: `${d.label} ×${d.count}`, value: fmt(d.cost) })),
-    { label: `Windows ×${config.windows}`, value: fmt(pricing.windowCost) },
+    ...pricing.windowBreakdown
+      .filter((w) => w.count > 0)
+      .map((w) => ({ label: `${w.label} ×${w.count}`, value: fmt(w.cost) })),
   ]
 
   const summaryRows = [
@@ -414,6 +483,7 @@ export function BuilderSection() {
     { label: "Square Footage", value: `${pricing.sqFt.toLocaleString()} sq ft` },
     { label: "Base Rate / sq ft", value: `$${pricing.ratePerSqFt}` },
     { label: "Total Doors", value: `${pricing.totalDoors}` },
+    { label: "Total Windows", value: `${pricing.totalWindows}` },
     { label: "Est. Lead Time", value: "6–8 weeks" },
   ]
 
@@ -570,8 +640,44 @@ export function BuilderSection() {
                 </div>
 
                 {/* Windows */}
-                <div className="pt-1">
-                  <Counter label={`Windows — ${fmt(WINDOW_COST)} ea.`} value={config.windows} min={0} max={20} onChange={(v) => set("windows", v)} />
+                <div className="space-y-3">
+                  {WINDOW_DEFS.map((win) => (
+                    <div
+                      key={win.key}
+                      className="flex items-center gap-3 rounded-sm border border-border bg-background p-3"
+                    >
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="text-sm font-semibold font-sans text-foreground">{win.label}</span>
+                          <span className="text-[10px] font-bold text-primary font-sans">{fmt(win.price)} ea.</span>
+                        </div>
+                        <p className="text-[11px] text-muted-foreground font-sans mt-0.5 leading-snug">{win.description}</p>
+                      </div>
+                      {/* Counter */}
+                      <div className="flex items-center gap-0 border border-border rounded-sm overflow-hidden shrink-0">
+                        <button
+                          onClick={() => setWindow(win.key, Math.max(0, config.windowCounts[win.key] - 1))}
+                          disabled={config.windowCounts[win.key] <= 0}
+                          className="w-8 h-8 flex items-center justify-center bg-muted hover:bg-border disabled:opacity-40 transition-colors"
+                          aria-label={`Decrease ${win.label}`}
+                        >
+                          <Minus className="h-3 w-3 text-foreground" />
+                        </button>
+                        <span className="w-10 text-center text-sm font-bold font-sans text-foreground select-none tabular-nums">
+                          {config.windowCounts[win.key]}
+                        </span>
+                        <button
+                          onClick={() => setWindow(win.key, Math.min(win.max, config.windowCounts[win.key] + 1))}
+                          disabled={config.windowCounts[win.key] >= win.max}
+                          className="w-8 h-8 flex items-center justify-center bg-muted hover:bg-border disabled:opacity-40 transition-colors"
+                          aria-label={`Increase ${win.label}`}
+                        >
+                          <Plus className="h-3 w-3 text-foreground" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -628,7 +734,7 @@ export function BuilderSection() {
                 {[
                   { label: "Sq Ft", value: pricing.sqFt.toLocaleString() },
                   { label: "Doors", value: pricing.totalDoors },
-                  { label: "Windows", value: config.windows },
+                  { label: "Windows", value: pricing.totalWindows },
                 ].map((s) => (
                   <div key={s.label} className="flex flex-col items-center py-3">
                     <span className="text-base font-bold text-foreground font-sans tabular-nums">{s.value}</span>
