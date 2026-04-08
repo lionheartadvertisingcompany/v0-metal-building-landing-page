@@ -15,7 +15,7 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
     href: categorySlugMap[label] ?? "#",
   })),
   Company: [
-    { label: "About Us", href: "#" },
+    { label: "About Us", href: "/about" },
     { label: "Case Studies", href: "#" },
     { label: "Sustainability", href: "#" },
     { label: "Press", href: "#" },
