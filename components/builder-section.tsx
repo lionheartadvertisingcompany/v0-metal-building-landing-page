@@ -23,6 +23,14 @@ import {
 // ---------------------------------------------------------------------------
 type RoofStyle = "gable" | "single-slope"
 type Gauge = "12" | "14"
+type DoorType = "walk" | "rollup" | "sectional" | "sliding"
+
+interface DoorCounts {
+  walk: number
+  rollup: number
+  sectional: number
+  sliding: number
+}
 
 interface Config {
   width: number
@@ -30,38 +38,92 @@ interface Config {
   height: number
   roofStyle: RoofStyle
   gauge: Gauge
-  doors: number
+  doorCounts: DoorCounts
   windows: number
 }
 
 // ---------------------------------------------------------------------------
-// Pricing logic — exact rules
+// Door definitions
+// ---------------------------------------------------------------------------
+interface DoorDef {
+  key: DoorType
+  label: string
+  size: string
+  description: string
+  price: number
+  max: number
+}
+
+const DOOR_DEFS: DoorDef[] = [
+  {
+    key: "walk",
+    label: "Walk Door",
+    size: "3′×7′",
+    description: "Personnel entry/exit. Standard steel, insulated.",
+    price: 450,
+    max: 8,
+  },
+  {
+    key: "rollup",
+    label: "Roll-Up Door",
+    size: "10′×10′",
+    description: "Self-storage & warehouses. Compact cylinder roll.",
+    price: 1_200,
+    max: 12,
+  },
+  {
+    key: "sectional",
+    label: "Sectional Overhead",
+    size: "12′×12′",
+    description: "Commercial garages. Panel sections on ceiling tracks.",
+    price: 1_800,
+    max: 8,
+  },
+  {
+    key: "sliding",
+    label: "Sliding Door",
+    size: "20′×14′",
+    description: "Agricultural, barns & hangars. Wide clear access.",
+    price: 2_800,
+    max: 4,
+  },
+]
+
+// ---------------------------------------------------------------------------
+// Pricing logic
 //   Base rate:        $12 / sq ft
 //   12 gauge:         +$2 / sq ft
 //   Single slope:     +10% on structural cost
-//   Roll-up door:     $1,200 each
+//   Doors:            per type (see DOOR_DEFS)
 //   Window:           $250 each
 //   Price range:      ±10% of estimated total
 // ---------------------------------------------------------------------------
-const BASE_RATE_PER_SQFT = 12        // $/sq ft
-const GAUGE_12_PREMIUM   = 2         // $/sq ft added for 12 gauge
-const DOOR_COST          = 1_200     // per roll-up door
-const WINDOW_COST        = 250       // per window
-const SINGLE_SLOPE_SURCHARGE = 0.10  // 10% on structural cost
+const BASE_RATE_PER_SQFT    = 12    // $/sq ft
+const GAUGE_12_PREMIUM      = 2     // $/sq ft added for 12 gauge
+const WINDOW_COST           = 250   // per window
+const SINGLE_SLOPE_SURCHARGE = 0.10 // 10% on structural cost
 
 function calcPricing(c: Config) {
-  const sqFt       = c.width * c.length
+  const sqFt        = c.width * c.length
   const ratePerSqFt = BASE_RATE_PER_SQFT + (c.gauge === "12" ? GAUGE_12_PREMIUM : 0)
   let structuralCost = sqFt * ratePerSqFt
-  if (c.roofStyle === "single-slope") {
-    structuralCost *= (1 + SINGLE_SLOPE_SURCHARGE)
-  }
-  const doorCost   = c.doors   * DOOR_COST
+  if (c.roofStyle === "single-slope") structuralCost *= (1 + SINGLE_SLOPE_SURCHARGE)
+
+  // Door costs per type
+  const doorBreakdown = DOOR_DEFS.map((d) => ({
+    key:   d.key,
+    label: d.label,
+    count: c.doorCounts[d.key],
+    cost:  c.doorCounts[d.key] * d.price,
+    unitPrice: d.price,
+  }))
+  const doorCost   = doorBreakdown.reduce((sum, d) => sum + d.cost, 0)
+  const totalDoors = doorBreakdown.reduce((sum, d) => sum + d.count, 0)
   const windowCost = c.windows * WINDOW_COST
   const subtotal   = structuralCost + doorCost + windowCost
-  // ±10% price range
-  const low  = Math.round(subtotal * 0.90)
-  const high = Math.round(subtotal * 1.10)
+  const low        = Math.round(subtotal * 0.90)
+  const high       = Math.round(subtotal * 1.10)
+
   return {
     sqFt,
     subtotal:       Math.round(subtotal),
@@ -69,6 +131,8 @@ function calcPricing(c: Config) {
     high,
     structuralCost: Math.round(structuralCost),
     doorCost,
+    doorBreakdown,
+    totalDoors,
     windowCost,
     ratePerSqFt,
   }
@@ -320,7 +384,7 @@ export function BuilderSection() {
     height: 14,
     roofStyle: "gable",
     gauge: "14",
-    doors: 1,
+    doorCounts: { walk: 1, rollup: 1, sectional: 0, sliding: 0 },
     windows: 2,
   })
   const [previewMode, setPreviewMode] = useState<"2d" | "3d">("3d")
@@ -329,12 +393,18 @@ export function BuilderSection() {
   const set = <K extends keyof Config>(key: K, value: Config[K]) =>
     setConfig((prev) => ({ ...prev, [key]: value }))
 
+  const setDoor = (type: DoorType, count: number) =>
+    setConfig((prev) => ({ ...prev, doorCounts: { ...prev.doorCounts, [type]: count } }))
+
   const pricing = useMemo(() => calcPricing(config), [config])
 
+  // Only show door types with count > 0 in breakdown; always show structure + windows
   const lineItems = [
     { label: "Steel Structure", value: fmt(pricing.structuralCost) },
-    { label: `Doors (×${config.doors})`, value: fmt(pricing.doorCost) },
-    { label: `Windows (×${config.windows})`, value: fmt(pricing.windowCost) },
+    ...pricing.doorBreakdown
+      .filter((d) => d.count > 0)
+      .map((d) => ({ label: `${d.label} ×${d.count}`, value: fmt(d.cost) })),
+    { label: `Windows ×${config.windows}`, value: fmt(pricing.windowCost) },
   ]
 
   const summaryRows = [
@@ -343,6 +413,7 @@ export function BuilderSection() {
     { label: "Steel Gauge", value: `${config.gauge} gauge` },
     { label: "Square Footage", value: `${pricing.sqFt.toLocaleString()} sq ft` },
     { label: "Base Rate / sq ft", value: `$${pricing.ratePerSqFt}` },
+    { label: "Total Doors", value: `${pricing.totalDoors}` },
     { label: "Est. Lead Time", value: "6–8 weeks" },
   ]
 
@@ -452,14 +523,55 @@ export function BuilderSection() {
                 </div>
               </div>
 
-              {/* Openings */}
+              {/* Openings — door types */}
               <div className="space-y-4">
                 <h3 className="text-[11px] font-bold text-muted-foreground font-sans uppercase tracking-widest border-b border-border pb-2">
-                  Openings
+                  Doors &amp; Openings
                 </h3>
-                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-5">
-                  <Counter label="Roll-up Doors — $1,200 ea." value={config.doors} min={0} max={12} onChange={(v) => set("doors", v)} />
-                  <Counter label="Windows — $250 ea." value={config.windows} min={0} max={20} onChange={(v) => set("windows", v)} />
+                <div className="space-y-3">
+                  {DOOR_DEFS.map((door) => (
+                    <div
+                      key={door.key}
+                      className="flex items-center gap-3 rounded-sm border border-border bg-background p-3"
+                    >
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="text-sm font-semibold font-sans text-foreground">{door.label}</span>
+                          <span className="text-[10px] text-muted-foreground font-sans bg-muted px-1.5 py-0.5 rounded">{door.size}</span>
+                          <span className="text-[10px] font-bold text-primary font-sans">{fmt(door.price)} ea.</span>
+                        </div>
+                        <p className="text-[11px] text-muted-foreground font-sans mt-0.5 leading-snug">{door.description}</p>
+                      </div>
+                      {/* Counter */}
+                      <div className="flex items-center gap-0 border border-border rounded-sm overflow-hidden shrink-0">
+                        <button
+                          onClick={() => setDoor(door.key, Math.max(0, config.doorCounts[door.key] - 1))}
+                          disabled={config.doorCounts[door.key] <= 0}
+                          className="w-8 h-8 flex items-center justify-center bg-muted hover:bg-border disabled:opacity-40 transition-colors"
+                          aria-label={`Decrease ${door.label}`}
+                        >
+                          <Minus className="h-3 w-3 text-foreground" />
+                        </button>
+                        <span className="w-10 text-center text-sm font-bold font-sans text-foreground select-none tabular-nums">
+                          {config.doorCounts[door.key]}
+                        </span>
+                        <button
+                          onClick={() => setDoor(door.key, Math.min(door.max, config.doorCounts[door.key] + 1))}
+                          disabled={config.doorCounts[door.key] >= door.max}
+                          className="w-8 h-8 flex items-center justify-center bg-muted hover:bg-border disabled:opacity-40 transition-colors"
+                          aria-label={`Increase ${door.label}`}
+                        >
+                          <Plus className="h-3 w-3 text-foreground" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Windows */}
+                <div className="pt-1">
+                  <Counter label={`Windows — ${fmt(WINDOW_COST)} ea.`} value={config.windows} min={0} max={20} onChange={(v) => set("windows", v)} />
                 </div>
               </div>
 
@@ -515,7 +627,7 @@ export function BuilderSection() {
               <div className="grid grid-cols-3 divide-x divide-border border-t border-border">
                 {[
                   { label: "Sq Ft", value: pricing.sqFt.toLocaleString() },
-                  { label: "Doors", value: config.doors },
+                  { label: "Doors", value: pricing.totalDoors },
                   { label: "Windows", value: config.windows },
                 ].map((s) => (
                   <div key={s.label} className="flex flex-col items-center py-3">

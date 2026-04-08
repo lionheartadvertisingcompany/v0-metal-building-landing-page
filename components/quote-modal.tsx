@@ -22,8 +22,8 @@ interface QuoteModalProps {
     height: number
     roofStyle: string
     gauge: string
-    doors: number
     windows: number
+    // doors is now per-type; totalDoors comes from pricing
   }
 }
 
