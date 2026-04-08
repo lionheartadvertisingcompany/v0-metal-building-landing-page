@@ -2,8 +2,19 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export const metadata = {
-  title: "About Us - Titan Steel Structures",
-  description: "Learn about Titan Steel Structures, a leader in pre-engineered steel building solutions with 25+ years of expertise.",
+  title: "About Us - 50+ Years of Steel Building Excellence",
+  description: "Titan Steel Structures is a leader in pre-engineered steel buildings with 25+ years of experience in architectural design CAD, location research, and local code compliance. Serving all 50 states.",
+  keywords: "steel building company, metal building manufacturer, pre-engineered steel, building experts, steel structure specialists, architectural design",
+  openGraph: {
+    title: "About Titan Steel Structures - Steel Building Experts",
+    description: "50+ years of combined experience delivering quality steel buildings across America. 1,500+ satisfied customers nationwide.",
+    images: [{
+      url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/30x72x15-Metal-Barndominium-in-Michigan-side-view-H2BCnVKYmRhQgh3Mu1NgjeAexHilpW.webp",
+      width: 1200,
+      height: 630,
+      alt: "Titan Steel Structures - About Us"
+    }],
+  },
 }
 
 export default function AboutPage() {

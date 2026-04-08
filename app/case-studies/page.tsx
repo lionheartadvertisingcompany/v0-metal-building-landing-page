@@ -6,8 +6,19 @@ import { Phone, ArrowRight, Building2, Home, Warehouse, Church, Tractor, Car } f
 import Link from "next/link"
 
 export const metadata = {
-  title: "Case Studies - Building Projects | Titan Steel Structures",
-  description: "Explore our portfolio of completed metal building projects including barndominiums, workshops, riding arenas, warehouses, and more.",
+  title: "Case Studies - 1,500+ Completed Metal Building Projects",
+  description: "Explore our portfolio of completed metal building projects across the United States. Barndominiums, workshops, riding arenas, warehouses, retail stores, and churches. 50+ years experience.",
+  keywords: "metal building projects, steel building portfolio, barndominium examples, riding arena projects, warehouse buildings, commercial steel buildings",
+  openGraph: {
+    title: "Metal Building Case Studies | Titan Steel Structures",
+    description: "View 1,500+ completed steel building projects from across America. Real customer projects and testimonials.",
+    images: [{
+      url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/60x75x12-Steel-Retail-Store-in-Utah-scaled-1-IIVgSEOZjWXv5LxkdgQ0wU0muYpL9c.webp",
+      width: 1200,
+      height: 630,
+      alt: "Titan Steel Structures - Case Studies"
+    }],
+  },
 }
 
 const projects = [

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { FAQSchema } from '@/components/schema-markup'
 
 interface FAQItem {
   category: string
@@ -300,6 +301,7 @@ export default function FAQPage() {
   
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <FAQSchema faqs={faqData.slice(0, 20)} />
       <Navbar />
       
       <main className="flex-1">
