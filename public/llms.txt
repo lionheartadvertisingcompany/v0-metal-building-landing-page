@@ -1,0 +1,43 @@
+# Titan Steel Structures
+
+> Metal Building Calculator & Custom Steel Structures
+
+## Company
+- Name: Titan Steel Structures
+- Phone: 1-888-807-6006
+- Email: info@titansteelstructures.com
+- Experience: 50+ years combined
+- Customers: 1,500+ satisfied nationwide
+- Coverage: All 50 US states
+
+## Services
+- Custom metal building design
+- Interactive pricing calculator
+- Agricultural buildings
+- Commercial structures
+- Residential barndominiums
+- Equestrian facilities
+- Aviation hangars
+- Storage solutions
+- Retail & office buildings
+
+## Features
+- 100% American-made steel
+- 50-year structural warranty
+- Custom dimensions & configurations
+- Instant online quotes
+- Roof styles: Gable, A-Frame, Single Slope
+- Steel gauges: 14, 12, 10 gauge
+- Nationwide delivery
+
+## Sitemap
+- / - Home & Calculator
+- /about - Company Information
+- /case-studies - Project Portfolio
+- /faq - Frequently Asked Questions
+- /buildings/agricultural - Agricultural Buildings
+- /buildings/commercial - Commercial Buildings
+- /buildings/equestrian - Equestrian Facilities
+- /buildings/retail-office - Retail & Office
+- /buildings/storage - Storage Solutions
+- /buildings/aviation - Aviation Hangars

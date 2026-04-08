@@ -7,10 +7,12 @@ import { HowItWorksSection } from "@/components/how-it-works-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { CtaSection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import { ProductSchema } from "@/components/schema-markup"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <ProductSchema />
       <Navbar />
       <main>
         <Hero />

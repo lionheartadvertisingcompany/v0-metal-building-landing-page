@@ -24,7 +24,7 @@ export const categories: CategoryData[] = [
     headline: "Steel Agricultural Buildings Built to Last",
     subheadline:
       "From hay storage to equipment shelters, our prefabricated steel farm buildings are engineered for durability in all weather conditions. American-made steel, fast delivery, lifetime value.",
-    heroImage: "/images/hero-agricultural.jpg",
+    heroImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Rockin-Wild-Ranch-Arena-150x275x18-1-1024x768-1-mhQz3NA6FL6BQ2OVQYCI7jbibtzGDw.webp",
     eyebrow: "Agricultural Structures",
     stats: [
       { value: "40×60", label: "Most Popular Size" },
@@ -81,7 +81,7 @@ export const categories: CategoryData[] = [
     headline: "Pre-Engineered Commercial Steel Buildings",
     subheadline:
       "Fast to build, cost-effective to operate. Our commercial metal buildings deliver maximum usable space with clear-span interiors — no columns interrupting your workflow.",
-    heroImage: "/images/hero-commercial.jpg",
+    heroImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/New-York-metal-warehouse-11fcV0USQBZOT62wUaFNWquzwpEVgd.webp",
     eyebrow: "Commercial Structures",
     stats: [
       { value: "50×100", label: "Most Popular Size" },
@@ -138,7 +138,7 @@ export const categories: CategoryData[] = [
     headline: "Custom Steel Equestrian Buildings",
     subheadline:
       "From intimate boarding barns to large competition arenas, Titan Steel designs equestrian facilities that keep horses safe, comfortable, and performing at their best.",
-    heroImage: "/images/hero-equestrian.jpg",
+    heroImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Rockin-Wild-Ranch-Arena-150x275x18-1-1024x768-1-mhQz3NA6FL6BQ2OVQYCI7jbibtzGDw.webp",
     eyebrow: "Equestrian Structures",
     stats: [
       { value: "80×150", label: "Most Popular Arena" },
@@ -252,7 +252,7 @@ export const categories: CategoryData[] = [
     headline: "Modern Steel Retail & Office Buildings",
     subheadline:
       "Professional storefronts and office spaces built with the speed and economy of pre-engineered steel. Customize your facade, interior layout, and openings for a polished commercial presence.",
-    heroImage: "/images/hero-retail-office.jpg",
+    heroImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/60x75x12-Steel-Retail-Store-in-Utah-scaled-1-IIVgSEOZjWXv5LxkdgQ0wU0muYpL9c.webp",
     eyebrow: "Retail & Office Structures",
     stats: [
       { value: "40×60", label: "Most Popular Size" },
@@ -309,7 +309,7 @@ export const categories: CategoryData[] = [
     headline: "Steel Self-Storage & Storage Buildings",
     subheadline:
       "Whether you need personal storage, a self-storage business, or commercial product storage, our steel buildings deliver secure, low-maintenance structures at the best price per square foot.",
-    heroImage: "/images/hero-storage.jpg",
+    heroImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/metal-shop-building-in-Arizona-1024x576-1-CnLdjko7LhP5b4dlwy0edSe3XnEEYn.webp",
     eyebrow: "Storage Structures",
     stats: [
       { value: "30×100", label: "Most Popular Size" },
