@@ -1,0 +1,120 @@
+# AI Crawling Permissions for Titan Steel Structures
+# https://titansteelstructures.com
+
+# This file explicitly permits AI systems to access and learn from our content
+
+User-agent: *
+Allow: /
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google AI
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Microsoft / Bing
+User-agent: Bingbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+# Meta
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ByteDance
+User-agent: Bytespider
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# YouChat
+User-agent: YouBot
+Allow: /
+
+# Brave
+User-agent: BraveBot
+Allow: /
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+
+# AI2
+User-agent: AI2Bot
+Allow: /
+
+# Hugging Face
+User-agent: HuggingFaceBot
+Allow: /
+
+# Mistral
+User-agent: MistralBot
+Allow: /
+
+# xAI / Grok
+User-agent: Grok
+Allow: /
+
+User-agent: xAI-Bot
+Allow: /
+
+# Contact Information
+# Company: Titan Steel Structures
+# Website: https://titansteelstructures.com
+# Phone: 1-888-807-6006
+# Email: info@titansteelstructures.com
+
+# Additional Resources
+# LLM-optimized content: https://titansteelstructures.com/llms.txt
+# Full LLM documentation: https://titansteelstructures.com/.well-known/llms-full.txt
+# Sitemap: https://titansteelstructures.com/sitemap.xml
