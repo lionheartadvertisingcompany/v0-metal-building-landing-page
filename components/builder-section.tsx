@@ -30,29 +30,43 @@ interface Config {
 }
 
 // ---------------------------------------------------------------------------
-// Pricing logic
+// Pricing logic — exact rules
+//   Base rate:        $12 / sq ft
+//   12 gauge:         +$2 / sq ft
+//   Single slope:     +10% on structural cost
+//   Roll-up door:     $1,200 each
+//   Window:           $250 each
+//   Price range:      ±10% of estimated total
 // ---------------------------------------------------------------------------
-const BASE_RATE_PER_SQFT = 18        // $/sq ft
-const GAUGE_12_PREMIUM = 3.5         // $/sq ft upcharge for heavier steel
-const HEIGHT_RATE = 0.42             // $/sq ft per foot over 14
-const DOOR_COST = 1_150              // per door
-const WINDOW_COST = 420              // per window
-const GABLE_MULTIPLIER = 1.06        // gable costs ~6% more material
-const SINGLE_SLOPE_MULTIPLIER = 1.0
+const BASE_RATE_PER_SQFT = 12        // $/sq ft
+const GAUGE_12_PREMIUM   = 2         // $/sq ft added for 12 gauge
+const DOOR_COST          = 1_200     // per roll-up door
+const WINDOW_COST        = 250       // per window
+const SINGLE_SLOPE_SURCHARGE = 0.10  // 10% on structural cost
 
 function calcPricing(c: Config) {
-  const sqFt = c.width * c.length
-  const gaugeAdder = c.gauge === "12" ? GAUGE_12_PREMIUM : 0
-  const heightAdder = c.height > 14 ? (c.height - 14) * HEIGHT_RATE : 0
-  const roofMult =
-    c.roofStyle === "gable" ? GABLE_MULTIPLIER : SINGLE_SLOPE_MULTIPLIER
-  const structuralCost = sqFt * (BASE_RATE_PER_SQFT + gaugeAdder + heightAdder) * roofMult
-  const doorCost = c.doors * DOOR_COST
+  const sqFt       = c.width * c.length
+  const ratePerSqFt = BASE_RATE_PER_SQFT + (c.gauge === "12" ? GAUGE_12_PREMIUM : 0)
+  let structuralCost = sqFt * ratePerSqFt
+  if (c.roofStyle === "single-slope") {
+    structuralCost *= (1 + SINGLE_SLOPE_SURCHARGE)
+  }
+  const doorCost   = c.doors   * DOOR_COST
   const windowCost = c.windows * WINDOW_COST
-  const subtotal = structuralCost + doorCost + windowCost
-  const low = Math.round(subtotal * 0.95)
-  const high = Math.round(subtotal * 1.1)
-  return { sqFt, subtotal: Math.round(subtotal), low, high, structuralCost: Math.round(structuralCost), doorCost, windowCost }
+  const subtotal   = structuralCost + doorCost + windowCost
+  // ±10% price range
+  const low  = Math.round(subtotal * 0.90)
+  const high = Math.round(subtotal * 1.10)
+  return {
+    sqFt,
+    subtotal:       Math.round(subtotal),
+    low,
+    high,
+    structuralCost: Math.round(structuralCost),
+    doorCost,
+    windowCost,
+    ratePerSqFt,
+  }
 }
 
 function fmt(n: number) {
@@ -321,7 +335,7 @@ export function BuilderSection() {
     { label: "Roof Style", value: config.roofStyle === "gable" ? "Gable (A-Frame)" : "Single Slope" },
     { label: "Steel Gauge", value: `${config.gauge} gauge` },
     { label: "Square Footage", value: `${pricing.sqFt.toLocaleString()} sq ft` },
-    { label: "Price / sq ft", value: fmt(Math.round(pricing.subtotal / pricing.sqFt)) },
+    { label: "Base Rate / sq ft", value: `$${pricing.ratePerSqFt}` },
     { label: "Est. Lead Time", value: "6–8 weeks" },
   ]
 
@@ -417,7 +431,12 @@ export function BuilderSection() {
                         </span>
                         {g === "12" && (
                           <span className="inline-block mt-1 text-[10px] font-bold text-primary font-sans uppercase tracking-wide">
-                            +${GAUGE_12_PREMIUM}/sq ft
+                            +${GAUGE_12_PREMIUM}.00/sq ft
+                          </span>
+                        )}
+                        {g === "14" && (
+                          <span className="inline-block mt-1 text-[10px] font-bold text-muted-foreground font-sans uppercase tracking-wide">
+                            Standard rate
                           </span>
                         )}
                       </button>
@@ -432,8 +451,8 @@ export function BuilderSection() {
                   Openings
                 </h3>
                 <div className="grid grid-cols-2 gap-6">
-                  <Counter label={`Doors — ${fmt(DOOR_COST)} ea.`} value={config.doors} min={0} max={12} onChange={(v) => set("doors", v)} />
-                  <Counter label={`Windows — ${fmt(WINDOW_COST)} ea.`} value={config.windows} min={0} max={20} onChange={(v) => set("windows", v)} />
+                  <Counter label="Roll-up Doors — $1,200 ea." value={config.doors} min={0} max={12} onChange={(v) => set("doors", v)} />
+                  <Counter label="Windows — $250 ea." value={config.windows} min={0} max={20} onChange={(v) => set("windows", v)} />
                 </div>
               </div>
 
@@ -471,13 +490,22 @@ export function BuilderSection() {
             {/* Pricing card */}
             <div className="bg-secondary rounded-sm shadow-sm overflow-hidden">
               <div className="px-6 pt-6 pb-5">
-                <p className="text-white/60 text-[11px] font-sans uppercase tracking-widest mb-1">Estimated Price Range</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-white font-sans tabular-nums">{fmt(pricing.low)}</span>
-                  <span className="text-white/50 font-sans text-sm">– {fmt(pricing.high)}</span>
+                <p className="text-white/60 text-[11px] font-sans uppercase tracking-widest mb-1">Estimated Price</p>
+                <div className="flex items-baseline gap-2 flex-wrap">
+                  <span className="text-4xl font-bold text-white font-sans tabular-nums">{fmt(pricing.subtotal)}</span>
                 </div>
-                <p className="text-white/40 text-xs font-sans mt-1">
-                  {fmt(Math.round(pricing.subtotal / pricing.sqFt))}/sq ft &bull; {pricing.sqFt.toLocaleString()} sq ft
+                {/* ±10% range bar */}
+                <div className="mt-3 flex items-center justify-between text-[11px] font-sans mb-1">
+                  <span className="text-white/50">Low <span className="text-white/80 font-semibold">{fmt(pricing.low)}</span></span>
+                  <span className="text-white/40 text-[10px]">± 10%</span>
+                  <span className="text-white/50">High <span className="text-white/80 font-semibold">{fmt(pricing.high)}</span></span>
+                </div>
+                <div className="relative h-1.5 rounded-full bg-white/10 overflow-hidden">
+                  <div className="absolute left-[9%] right-[9%] top-0 bottom-0 bg-primary/70 rounded-full" />
+                  <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-white/60" />
+                </div>
+                <p className="text-white/40 text-xs font-sans mt-2.5">
+                  ${pricing.ratePerSqFt}/sq ft &bull; {pricing.sqFt.toLocaleString()} sq ft total
                 </p>
               </div>
 
