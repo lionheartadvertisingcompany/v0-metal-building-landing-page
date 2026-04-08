@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 
 interface FAQItem {
   category: string
@@ -266,25 +268,25 @@ function FAQAccordion({ item }: { item: FAQItem }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="border-b border-white/10">
+    <div className="bg-background/30">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left py-4 flex items-center justify-between hover:opacity-80 transition-opacity"
+        className="w-full text-left px-6 py-5 flex items-center justify-between hover:bg-white/5 transition-colors"
       >
         <div className="flex-1">
-          <h3 className="text-base font-semibold text-foreground font-sans pr-4">
+          <h3 className="text-base font-semibold text-foreground font-sans pr-4 leading-relaxed">
             {item.question}
           </h3>
         </div>
         <ChevronDown
-          className={`h-5 w-5 text-primary flex-shrink-0 transition-transform ${
+          className={`h-5 w-5 text-primary flex-shrink-0 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
       </button>
       {isOpen && (
-        <div className="pb-4 pr-8">
-          <p className="text-foreground/80 text-sm font-sans leading-relaxed">
+        <div className="px-6 pb-5">
+          <p className="text-muted-foreground text-sm font-sans leading-relaxed">
             {item.answer}
           </p>
         </div>
@@ -297,15 +299,18 @@ export default function FAQPage() {
   const categories = Array.from(new Set(faqData.map(item => item.category)))
   
   return (
-    <main className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="bg-secondary py-16 sm:py-24">
+    <div className="min-h-screen bg-background flex flex-col">
+      <Navbar />
+      
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-b from-secondary to-background py-16 sm:py-24 mt-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground font-sans mb-4 text-balance">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white font-sans mb-4 text-balance">
             Frequently Asked Questions
           </h1>
-          <p className="text-lg text-foreground/70 font-sans max-w-2xl mx-auto">
-            Find answers to common questions about prefabricated metal buildings, our calculator, and the quote process.
+          <p className="text-lg text-white/80 font-sans max-w-2xl mx-auto leading-relaxed">
+            Everything you need to know about prefabricated metal buildings, our calculator, and the quote process.
           </p>
         </div>
       </section>
@@ -315,10 +320,10 @@ export default function FAQPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           {categories.map(category => (
             <div key={category} className="mb-12">
-              <h2 className="text-2xl font-bold text-foreground font-sans mb-6 uppercase text-primary">
+              <h2 className="text-xl font-bold text-foreground font-sans mb-4 uppercase tracking-wide">
                 {category}
               </h2>
-              <div className="bg-white/5 rounded-lg border border-white/10 overflow-hidden">
+              <div className="bg-secondary/30 rounded-lg border border-white/10 overflow-hidden divide-y divide-white/10">
                 {faqData
                   .filter(item => item.category === category)
                   .map((item, index) => (
@@ -329,26 +334,33 @@ export default function FAQPage() {
           ))}
 
           {/* CTA Section */}
-          <div className="mt-16 pt-12 border-t border-white/10 text-center">
-            <h3 className="text-2xl font-bold text-foreground font-sans mb-4">
+          <div className="mt-16 bg-primary/10 border border-primary/20 rounded-lg p-8 sm:p-12 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white font-sans mb-4">
               Still have questions?
             </h3>
-            <p className="text-foreground/70 font-sans mb-8 max-w-2xl mx-auto">
-              Our team of specialists is ready to help. Call us at{' '}
-              <a href="tel:+18888076006" className="text-primary font-semibold hover:underline">
-                1-888-807-6006
-              </a>
-              {' '}or get in touch with any questions about your project.
+            <p className="text-white/80 font-sans mb-8 max-w-2xl mx-auto leading-relaxed">
+              Our team of specialists is ready to help you design the perfect metal building for your needs.
             </p>
-            <a
-              href="#builder"
-              className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg transition-colors font-sans"
-            >
-              Get Your Quote
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="tel:+18888076006"
+                className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg transition-colors font-sans"
+              >
+                Call: 1-888-807-6006
+              </a>
+              <a
+                href="#builder"
+                className="inline-block bg-white text-secondary font-semibold px-8 py-3 rounded-lg hover:bg-white/90 transition-colors font-sans"
+              >
+                Get Your Quote
+              </a>
+            </div>
           </div>
         </div>
       </section>
-    </main>
+      </main>
+      
+      <Footer />
+    </div>
   )
 }
