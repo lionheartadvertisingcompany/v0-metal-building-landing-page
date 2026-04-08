@@ -16,72 +16,84 @@ const projects = [
     description: "As housing costs hit record highs, people of all ages are turning to metal barndominiums for affordable, durable living spaces.",
     category: "Residential",
     icon: Home,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/30x72x15-Metal-Barndominium-in-Michigan-side-view-H2BCnVKYmRhQgh3Mu1NgjeAexHilpW.webp",
   },
   {
     title: "30x45x14 Metal Shop Building in Arizona",
     description: "Our prefab metal buildings have become very popular for workshops and shop buildings across the Southwest.",
     category: "Workshop",
     icon: Building2,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/metal-shop-building-in-Arizona-1024x576-1-CnLdjko7LhP5b4dlwy0edSe3XnEEYn.webp",
   },
   {
     title: "150x275x18 Steel Riding Arena in Texas",
     description: "One of the most popular uses for our steel buildings is covered riding arenas for equestrian facilities.",
     category: "Equestrian",
     icon: Tractor,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Rockin-Wild-Ranch-Arena-150x275x18-1-1024x768-1-mhQz3NA6FL6BQ2OVQYCI7jbibtzGDw.webp",
   },
   {
     title: "60x100x12 Steel Retail Store in Utah",
     description: "Utah's thriving retail industry demands versatile and visually appealing commercial spaces built to last.",
     category: "Commercial",
     icon: Building2,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/60x75x12-Steel-Retail-Store-in-Utah-scaled-1-IIVgSEOZjWXv5LxkdgQ0wU0muYpL9c.webp",
   },
   {
     title: "100x300x25 Steel Warehouse in New York",
     description: "Prefab steel buildings make excellent warehouse and storage buildings because of their durability and clear-span design.",
     category: "Warehouse",
     icon: Warehouse,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/New-York-metal-warehouse-11fcV0USQBZOT62wUaFNWquzwpEVgd.webp",
   },
   {
     title: "110x200x20 Metal Church Building in Michigan",
     description: "Faith communities need worship spaces that are welcoming, cost-effective, and built to serve for generations.",
     category: "Religious",
     icon: Church,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Virginia-Metal-Buildings-e1591289196480-2016x1008-1-dRTo0vy2KRDuUog3VTfo1rozwjRk09.webp",
   },
   {
     title: "50x75x16 Steel Workshop in Montana",
-    description: "Pre-engineered steel buildings are the number one choice for workshops and storage across Montana&apos;s rugged terrain.",
+    description: "Pre-engineered steel buildings are the number one choice for workshops and storage across Montana's rugged terrain.",
     category: "Workshop",
     icon: Building2,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/metal-shop-building-in-Arizona-1024x576-1-CnLdjko7LhP5b4dlwy0edSe3XnEEYn.webp",
   },
   {
     title: "90x180x16 Metal Riding Arena in Tennessee",
     description: "A popular use for our prefab metal buildings is covered riding arenas that protect horses and riders year-round.",
     category: "Equestrian",
     icon: Tractor,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Rockin-Wild-Ranch-Arena-150x275x18-1-1024x768-1-mhQz3NA6FL6BQ2OVQYCI7jbibtzGDw.webp",
   },
   {
     title: "28x92x16 Metal House in North Carolina",
     description: "Prefabricated metal buildings have numerous advantages over traditional construction methods for residential use.",
     category: "Residential",
     icon: Home,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/30x72x15-Metal-Barndominium-in-Michigan-side-view-H2BCnVKYmRhQgh3Mu1NgjeAexHilpW.webp",
   },
   {
     title: "40x80x16 Steel Shop in Florida",
     description: "One of the most popular types of buildings we sell is shop and storage combinations built to withstand Florida weather.",
     category: "Workshop",
     icon: Building2,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/metal-shop-building-in-Arizona-1024x576-1-CnLdjko7LhP5b4dlwy0edSe3XnEEYn.webp",
   },
   {
     title: "60x80x18 Metal Building Home in Montana",
     description: "Choosing a prefab metal building for a home is about durability, efficiency, and long-term value.",
     category: "Residential",
     icon: Home,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/30x72x15-Metal-Barndominium-in-Michigan-side-view-H2BCnVKYmRhQgh3Mu1NgjeAexHilpW.webp",
   },
   {
     title: "50x60x16 Metal RV Storage in Idaho",
-    description: "Whether you&apos;re in the mountains or the plains, our metal buildings provide secure RV and vehicle storage.",
+    description: "Whether you're in the mountains or the plains, our metal buildings provide secure RV and vehicle storage.",
     category: "Storage",
     icon: Car,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/New-York-metal-warehouse-11fcV0USQBZOT62wUaFNWquzwpEVgd.webp",
   },
 ]
 
@@ -143,9 +155,16 @@ export default function CaseStudiesPage() {
             {projects.map((project, index) => {
               const IconComponent = project.icon
               return (
-                <Card key={index} className="group hover:shadow-lg transition-shadow duration-300 border-border/50">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
+                <Card key={index} className="group hover:shadow-lg transition-shadow duration-300 border-border/50 overflow-hidden flex flex-col">
+                  <div className="relative overflow-hidden h-48 bg-muted">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-6 flex-1 flex flex-col">
+                    <div className="flex items-start gap-4 flex-1">
                       <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                         <IconComponent className="w-6 h-6 text-primary" />
                       </div>
