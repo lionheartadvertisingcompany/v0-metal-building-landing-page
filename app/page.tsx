@@ -1,7 +1,9 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { BuildingTypesSection } from "@/components/building-types-section"
+import { SteelBuildingPricingInfo } from "@/components/steel-building-pricing-info"
 import { BuilderSection } from "@/components/builder-section"
+import { SteelBuildingQnA } from "@/components/steel-building-qna"
 import { BenefitsSection } from "@/components/benefits-section"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
@@ -17,7 +19,9 @@ export default function Home() {
       <main>
         <Hero />
         <BuildingTypesSection />
+        <SteelBuildingPricingInfo />
         <BuilderSection />
+        <SteelBuildingQnA />
         <BenefitsSection />
         <HowItWorksSection />
         <TestimonialsSection />

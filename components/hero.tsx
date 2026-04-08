@@ -41,9 +41,9 @@ export function Hero() {
 
         {/* Headline */}
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance font-sans mb-6">
-          Design Your Metal Building
+          Metal Buildings Prices: Design Your Custom Steel Building
           <br className="hidden sm:block" />
-          <span className="text-primary"> &amp; Get Instant Pricing</span>
+          <span className="text-primary">&amp; Get Instant Pricing</span>
         </h1>
 
         {/* Subheadline */}
