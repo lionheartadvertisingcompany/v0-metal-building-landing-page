@@ -474,11 +474,15 @@ function SliderRow({
 // ---------------------------------------------------------------------------
 // Main export
 // ---------------------------------------------------------------------------
-export function BuilderSection() {
+interface BuilderSectionProps {
+  defaultConfig?: { width: number; length: number; height: number }
+}
+
+export function BuilderSection({ defaultConfig }: BuilderSectionProps = {}) {
   const [config, setConfig] = useState<Config>({
-    width: 40,
-    length: 60,
-    height: 14,
+    width: defaultConfig?.width ?? 40,
+    length: defaultConfig?.length ?? 60,
+    height: defaultConfig?.height ?? 14,
     roofStyle: "gable",
     gauge: "14",
     doorCounts: { walk: 1, rollup: 1, sectional: 0, sliding: 0 },
