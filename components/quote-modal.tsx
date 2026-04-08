@@ -15,6 +15,8 @@ interface QuoteModalProps {
     low: number
     high: number
     sqFt: number
+    totalDoors: number
+    totalWindows: number
   }
   config: {
     width: number
@@ -79,10 +81,29 @@ function validate(fields: FormFields): FormErrors {
 
 // Mock API call — resolves after 1.5 s
 async function submitQuote(fields: FormFields, config: QuoteModalProps["config"], pricing: QuoteModalProps["pricing"]): Promise<void> {
-  await new Promise((res) => setTimeout(res, 1500))
-  // In production, replace with a real fetch() to your API endpoint.
-  // e.g.: await fetch("/api/quote", { method: "POST", body: JSON.stringify({ ...fields, config, pricing }) })
-  console.log("[QuoteModal] Quote submitted:", { fields, config, pricing })
+  const response = await fetch("/api/send-quote", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: fields.name,
+      email: fields.email,
+      phone: fields.phone,
+      zipCode: fields.zip,
+      width: config.width,
+      length: config.length,
+      height: config.height,
+      roofStyle: config.roofStyle,
+      gauge: config.gauge,
+      totalDoors: pricing.totalDoors,
+      totalWindows: pricing.totalWindows,
+      estimatedPrice: pricing.subtotal,
+      priceRange: { low: pricing.low, high: pricing.high },
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error("Failed to submit quote")
+  }
 }
 
 // ---------------------------------------------------------------------------
