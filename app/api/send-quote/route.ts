@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: SENDER_EMAIL,
       to: body.email,
-      subject: "Your Titan Steel Structures Quote Request",
+      subject: "Your Metal Builder Quote Request",
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>Thank you for your quote request, ${body.name}!</h2>

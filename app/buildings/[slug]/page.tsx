@@ -21,11 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = getCategoryBySlug(slug)
   if (!category) return {}
   return {
-    title: `${category.name} | Titan Steel Structures`,
+    title: `${category.name} | Metal Builder`,
     description: category.subheadline,
-    icons: {
-      icon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/titan%20steel%20structures%20logo-y6dkkVGPMuFB8ZzpSGTDzYmelRlLJt.png",
-    },
   }
 }
 
