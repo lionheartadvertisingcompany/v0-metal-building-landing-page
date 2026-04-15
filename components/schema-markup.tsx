@@ -2,11 +2,10 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Titan Steel Structures",
-    "url": "https://titansteelstructures.com",
-    "logo": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/titan%20steel%20structures%20logo-y6dkkVGPMuFB8ZzpSGTDzYmelRlLJt.png",
+    "name": "Metal Builder",
+    "url": "https://metalbuilder.com",
     "description": "Leading provider of pre-engineered steel structures and metal building kits with 50+ years of experience and 1,500+ satisfied customers nationwide.",
-    "telephone": "+1-888-807-6006",
+    "telephone": "+1-800-987-2853",
     "email": "info@titansteelstructures.com",
     "address": {
       "@type": "PostalAddress",
@@ -23,7 +22,7 @@ export function OrganizationSchema() {
       "reviewCount": "1500"
     },
     "sameAs": [
-      "https://titansteelstructures.com"
+      "https://metalbuilder.com"
     ]
   }
 
@@ -43,11 +42,11 @@ export function ProductSchema() {
     "description": "Pre-engineered steel building kits with custom dimensions, roof styles, and configurations. 100% American-made with 50-year warranty.",
     "brand": {
       "@type": "Brand",
-      "name": "Titan Steel Structures"
+      "name": "Metal Builder"
     },
     "manufacturer": {
       "@type": "Organization",
-      "name": "Titan Steel Structures"
+      "name": "Metal Builder"
     },
     "offers": {
       "@type": "AggregateOffer",
@@ -78,11 +77,10 @@ export function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Titan Steel Structures",
-    "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/titan%20steel%20structures%20logo-y6dkkVGPMuFB8ZzpSGTDzYmelRlLJt.png",
-    "telephone": "+1-888-807-6006",
+    "name": "Metal Builder",
+    "telephone": "+1-800-987-2853",
     "email": "info@titansteelstructures.com",
-    "url": "https://titansteelstructures.com",
+    "url": "https://metalbuilder.com",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",

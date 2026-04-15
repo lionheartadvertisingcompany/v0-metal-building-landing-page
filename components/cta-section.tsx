@@ -36,11 +36,11 @@ export function CtaSection() {
         {/* Contact quick links */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 border-t border-white/20">
           <a
-            href="tel:+18888076006"
+            href="tel:+18008872853"
             className="flex items-center gap-2 text-white/80 hover:text-white font-sans text-sm transition-colors"
           >
             <Phone className="h-4 w-4" />
-            1-888-807-6006
+            1-800-Your-Build
           </a>
           <a
             href="mailto:info@titansteelstructures.com"

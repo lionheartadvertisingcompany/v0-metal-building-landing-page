@@ -66,7 +66,7 @@ export function CategoryHero({ category }: CategoryHeroProps) {
             className="border-white/40 text-white hover:bg-white/10 hover:text-white font-sans font-semibold text-base px-8 py-4 h-auto rounded-sm bg-transparent"
             asChild
           >
-            <a href="tel:+18888076006">Call 1-888-807-6006</a>
+            <a href="tel:+18008872853">Call 1-800-Your-Build</a>
           </Button>
         </div>
 
