@@ -43,11 +43,11 @@ export function CtaSection() {
             1-888-807-6006
           </a>
           <a
-            href="mailto:quotes@steelforge.com"
+            href="mailto:info@titansteelstructures.com"
             className="flex items-center gap-2 text-white/80 hover:text-white font-sans text-sm transition-colors"
           >
             <Mail className="h-4 w-4" />
-            quotes@steelforge.com
+            info@titansteelstructures.com
           </a>
         </div>
       </div>

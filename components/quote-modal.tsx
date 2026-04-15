@@ -79,7 +79,7 @@ function validate(fields: FormFields): FormErrors {
   return errors
 }
 
-// Mock API call — resolves after 1.5 s
+// Submit quote to the API
 async function submitQuote(fields: FormFields, config: QuoteModalProps["config"], pricing: QuoteModalProps["pricing"]): Promise<void> {
   const response = await fetch("/api/send-quote", {
     method: "POST",
@@ -102,7 +102,13 @@ async function submitQuote(fields: FormFields, config: QuoteModalProps["config"]
   })
 
   if (!response.ok) {
-    throw new Error("Failed to submit quote")
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.error || "Failed to submit quote")
+  }
+
+  const data = await response.json()
+  if (!data.success) {
+    throw new Error(data.error || "Failed to submit quote")
   }
 }
 
@@ -193,7 +199,8 @@ export function QuoteModal({ open, onClose, pricing, config }: QuoteModalProps) 
     try {
       await submitQuote(fields, config, pricing)
       setStatus("success")
-    } catch {
+    } catch (error) {
+      console.error("[v0] Quote submission error:", error)
       setStatus("idle")
       setErrors({ email: "Something went wrong. Please try again." })
     }

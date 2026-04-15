@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { categorySlugMap } from "@/lib/category-data"
 
 const productLinks = [
@@ -15,8 +16,8 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
     href: categorySlugMap[label] ?? "#",
   })),
   Company: [
-    { label: "About Us", href: "#" },
-    { label: "Case Studies", href: "#" },
+    { label: "About Us", href: "/about" },
+    { label: "Case Studies", href: "/case-studies" },
     { label: "Sustainability", href: "#" },
     { label: "Press", href: "#" },
     { label: "Careers", href: "#" },
@@ -26,7 +27,7 @@ const footerLinks: Record<string, { label: string; href: string }[]> = {
     { label: "Quote Request", href: "#builder" },
     { label: "Technical Specs", href: "#" },
     { label: "Installation Guide", href: "#" },
-    { label: "FAQ", href: "#" },
+    { label: "FAQ", href: "/faq" },
   ],
   Legal: [
     { label: "Privacy Policy", href: "#" },
@@ -63,12 +64,12 @@ export function Footer() {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-white/50 hover:text-white text-sm font-sans transition-colors"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
