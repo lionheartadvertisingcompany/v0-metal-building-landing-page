@@ -25,7 +25,7 @@ const COMPANY_EMAILS = [
   "ccooper@titansteelstructures.com",
 ]
 
-const SENDER_EMAIL = "noreply@titanmetalbuildingcalculator.com"
+const SENDER_EMAIL = "noreply@metalbuilder.com"
 
 export async function POST(request: NextRequest) {
   try {
