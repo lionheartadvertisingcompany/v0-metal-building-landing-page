@@ -19,8 +19,6 @@ interface QuoteRequest {
 
 const COMPANY_EMAILS = [
   "lionheartadvertisingcompany@gmail.com",
-  "info@titansteelstructures.com",
-  "ccooper@titansteelstructures.com",
 ]
 
 const SENDER_EMAIL = "noreply@metalbuilder.com"
