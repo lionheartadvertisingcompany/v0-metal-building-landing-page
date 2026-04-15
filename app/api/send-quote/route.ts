@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
           <p>Thanks for choosing Titan Steel Structures!</p>
           <p style="color: #666; font-size: 12px; margin-top: 20px;">
             This is an automated message. Please do not reply to this email. 
-            Contact us at info@titansteelstructures.com or call 1-888-807-6006.
+            Contact us at info@titansteelstructures.com or call 1-800-Your-Build.
           </p>
         </div>
       `,

@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Get a Quote", href: "#builder" },
   { label: "Benefits", href: "#benefits" },
   { label: "How It Works", href: "#how-it-works" },
+  { label: "FAQ", href: "#faq" },
 ]
 
 export function Navbar() {
@@ -52,10 +53,10 @@ export function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <a 
-            href="tel:+18888076006" 
+            href="tel:+18008872853" 
             className="text-sm text-white/90 hover:text-white transition-colors font-sans font-semibold"
           >
-            1-888-807-6006
+            1-800-Your-Build
           </a>
           <Button 
             className="bg-primary hover:bg-primary/90 text-white font-sans font-semibold px-5"
