@@ -45,18 +45,13 @@ export function Footer() {
           {/* Brand column */}
           <div className="col-span-2 sm:col-span-3 md:col-span-1">
             <div className="flex items-center gap-2 text-white mb-4">
-              <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/titan%20steel%20structures%20logo-y6dkkVGPMuFB8ZzpSGTDzYmelRlLJt.png"
-                alt="Titan Steel Structures"
-                className="h-8 w-auto"
-              />
-              <div className="flex flex-col">
-                <span className="font-bold text-sm font-sans">Titan</span>
-                <span className="text-xs text-white/70 font-sans">Steel Structures</span>
+              <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                <span className="font-bold text-sm text-white">MB</span>
               </div>
+              <span className="font-bold text-sm font-sans">Metal Builder</span>
             </div>
             <p className="text-white/50 text-sm font-sans leading-relaxed">
-              America&apos;s trusted prefabricated metal building provider. Quality American-made steel structures for every application.
+              Premium prefabricated metal buildings. Fast, reliable, and cost-effective steel structures for any application.
             </p>
           </div>
 
@@ -84,7 +79,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm font-sans">
-            &copy; {new Date().getFullYear()} Titan Steel Structures, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Metal Builder. All rights reserved.
           </p>
           <p className="text-white/30 text-xs font-sans">
             Prices shown are estimates. Final pricing confirmed by a specialist.

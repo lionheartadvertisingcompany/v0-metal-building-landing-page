@@ -19,7 +19,7 @@ export function CategoryFeatures({ category }: CategoryFeaturesProps) {
             Everything You Need in One Building
           </h2>
           <p className="text-muted-foreground font-sans max-w-xl mx-auto leading-relaxed">
-            Titan Steel {category.name.toLowerCase()} are engineered for your specific application — durable, customizable, and delivered fast.
+            Premium {category.name.toLowerCase()} engineered for your specific application — durable, customizable, and delivered fast.
           </p>
         </div>
 
