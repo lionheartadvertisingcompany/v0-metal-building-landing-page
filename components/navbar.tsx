@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Get a Quote", href: "#builder" },
   { label: "Benefits", href: "#benefits" },
   { label: "How It Works", href: "#how-it-works" },
+  { label: "FAQ", href: "#faq" },
 ]
 
 export function Navbar() {

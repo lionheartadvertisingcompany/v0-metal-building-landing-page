@@ -547,7 +547,7 @@ export function SteelBuildingQnA() {
   }
 
   return (
-    <section className="py-16 sm:py-24 bg-muted/30">
+    <section id="faq" className="py-16 sm:py-24 bg-muted/30">
       {/* FAQ Schema */}
       <script
         type="application/ld+json"
